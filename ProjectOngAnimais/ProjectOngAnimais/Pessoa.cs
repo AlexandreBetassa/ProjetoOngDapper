@@ -14,6 +14,7 @@ namespace ProjectOngAnimais
         public String telefone { get; set; }
         public Endereco End { get; set; }
         public Char Ativa { get; set; }
+        public DateTime DataNascimento { get; set; }
 
         public Pessoa()
         {
