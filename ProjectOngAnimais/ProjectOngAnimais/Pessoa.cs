@@ -20,5 +20,10 @@ namespace ProjectOngAnimais
             Ativa = 'A';
         }
 
+        public void CadastrarPessoa()
+        {
+            Console.WriteLine();
+        }
+
     }
 }
