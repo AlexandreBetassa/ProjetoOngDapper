@@ -26,9 +26,19 @@ namespace Project_OnTheFly
             cpf = cpf.Replace("{", "").Replace("}", "").Replace(":", "").Replace(";", "");
             cpf = cpf.Replace("<", "").Replace(">", "").Replace("ç", "").Replace("Ç", "");
             //Se o CPF for informado vazio
-            if (cpf.Length == 0) return false;
+            if (cpf.Length == 0)
+            {
+                Console.WriteLine("CPF inválido");
+                Pause();
+                return false;
+            }
             //Se a quantidade de dígitos for diferente do permitido (11)
-            if (cpf.Length != 11) return false;
+            if (cpf.Length != 11)
+            {
+                Console.WriteLine("CPF inválido");
+                Pause();
+                return false;
+            }
             //Se os números informados forem todos iguais
             switch (cpf)
             {
@@ -112,7 +122,7 @@ namespace Project_OnTheFly
             string valor;
             do
             {
-                Console.WriteLine(texto);
+                Console.Write(texto);
                 valor = Console.ReadLine();
                 if (String.IsNullOrWhiteSpace(valor))
                 {

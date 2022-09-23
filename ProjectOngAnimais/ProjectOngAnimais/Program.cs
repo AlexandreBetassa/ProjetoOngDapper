@@ -6,7 +6,9 @@ namespace ProjectOngAnimais
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Pessoa p = new Pessoa();
+            p.CadastrarPessoa();
+            Console.WriteLine(p);
         }
     }
 }
