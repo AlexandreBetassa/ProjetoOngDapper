@@ -8,6 +8,7 @@ namespace ProjectOngAnimais
         {
             Pet p = new Pet();
             p.CadastrarPet();
+
             Console.WriteLine(p);
         }
     }
