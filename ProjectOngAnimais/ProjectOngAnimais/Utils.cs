@@ -108,13 +108,13 @@ namespace Project_OnTheFly
             char valor;
             do
             {
-                Console.Write($"{texto}: ");
-                if (!char.TryParse(Console.ReadLine().ToUpper(), out valor))
+                Console.Write($"{texto} ");
+                if (!char.TryParse(Console.ReadLine().ToUpper(), out valor) && char.IsWhiteSpace(valor))
                 {
                     Console.WriteLine("Informe uma opção válida...");
                     Pause();
-                }
-                else return valor;
+                }else
+                    return valor;
             } while (true);
         }
         public static String ColetarString(string texto)

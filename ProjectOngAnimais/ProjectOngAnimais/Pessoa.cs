@@ -18,10 +18,7 @@ namespace ProjectOngAnimais
         public Char Ativa { get; set; }
         public DateTime DataNascimento { get; set; }
 
-        public Pessoa()
-        {
-            Ativa = 'A';
-        }
+        public Pessoa() { }
 
         public void CadastrarPessoa()
         {
@@ -47,6 +44,7 @@ namespace ProjectOngAnimais
             } while (true);
 
             Telefone = Utils.ColetarString("Informe o número do teledone com DDD: ");
+            Ativa = 'A';
         }
 
         public override string ToString()
