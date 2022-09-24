@@ -10,7 +10,7 @@ namespace ProjectOngAnimais
 
         }
 
-        static void EditarCadastro()
+        static void EditarCadastroPessoa()
         {
             Db_ONG db = new Db_ONG();
             Console.WriteLine("Informe o CPF da pessoa que deseja atualizar: ");

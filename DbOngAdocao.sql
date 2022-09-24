@@ -50,3 +50,10 @@ uf varchar(3) not null
 
 foreign key (cpf) references pessoa(cpf)
 );
+
+update pessoa
+set nome = 'Alexandre'
+where cpf = '38842453846';
+
+select * from pessoa
+
