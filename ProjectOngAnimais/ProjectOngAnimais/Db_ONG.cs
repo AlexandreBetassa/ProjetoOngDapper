@@ -55,5 +55,14 @@ namespace ProjectOngAnimais
             conn.Close();
         }
 
+        public void DeleteDataPessoa(String cpf)
+        {
+            conn.Open();
+            string sql = "update dbo.pessoa set status = 'I' where cpf = @cpf";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.Add(new SqlParameter("@cpf", cpf));
+            cmd.ExecuteNonQuery();
+        }
+
     }
 }
