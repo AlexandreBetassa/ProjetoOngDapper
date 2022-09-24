@@ -38,12 +38,13 @@ namespace ProjectOngAnimais
             {
                 while (r.Read())
                 {
-                    Console.WriteLine($"CPF: {r.GetString(0)}");
                     Console.WriteLine($"Nome: {r.GetString(1)}");
+                    Console.WriteLine($"CPF: {r.GetString(0)}");
                     Console.WriteLine($"Sexo: {r.GetString(2)}");
                     Console.WriteLine($"Tel: {r.GetString(3)}");
                     Console.WriteLine($"Endereço: {r.GetString(4)}");
                     Console.WriteLine($"Data de nascimento: {r.GetDateTime(5).ToShortDateString()}");
+                    Console.WriteLine();
                 }
             }
             conn.Close();
@@ -61,7 +62,7 @@ namespace ProjectOngAnimais
         public void UpdateDataPessoa(String sql)
         {
             conn.Open();
-            SqlCommand cmd = new SqlCommand(sql,conn);
+            SqlCommand cmd = new SqlCommand(sql, conn);
             cmd.ExecuteNonQuery();
             conn.Close();
         }

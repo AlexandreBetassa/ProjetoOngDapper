@@ -51,8 +51,7 @@ namespace ProjectOngAnimais
             db.InsertTablePessoa(this);
         }
 
-
-        static void EditarCadastroPessoa()
+        public static void EditarCadastroPessoa()
         {
             Db_ONG db = new Db_ONG();
             Console.WriteLine("Informe o CPF da pessoa que deseja atualizar: ");
@@ -83,6 +82,14 @@ namespace ProjectOngAnimais
                     Console.WriteLine("Opção inválida!!!");
                     break;
             }
+        }
+
+        public static void DeletarPessoa()
+        {
+            Db_ONG db = new Db_ONG();
+            Console.WriteLine("Informe o CPF da pessoa terá seu cadastro inativado");
+            String cpf = Console.ReadLine();
+            db.DeleteDataPessoa(cpf);
         }
 
         public override string ToString()
