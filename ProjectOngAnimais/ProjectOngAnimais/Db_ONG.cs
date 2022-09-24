@@ -61,7 +61,6 @@ namespace ProjectOngAnimais
         public void UpdateDataPessoa(String sql)
         {
             conn.Open();
-           // string sql = $"update pessoa set {coluna} = {valor} where cpf = {cpf}";
             SqlCommand cmd = new SqlCommand(sql,conn);
             cmd.ExecuteNonQuery();
             conn.Close();
