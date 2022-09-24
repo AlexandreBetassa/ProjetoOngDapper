@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project_OnTheFly
+namespace ProjectOngAnimais
 {
     internal class Utils
     {
@@ -94,7 +94,7 @@ namespace Project_OnTheFly
             int valor;
             do
             {
-                Console.Write($"{texto}: ");
+                Console.Write(texto);
                 if (!int.TryParse(Console.ReadLine(), out valor) || valor < 0)
                 {
                     Console.WriteLine("Informe uma opção válida...");
@@ -108,7 +108,7 @@ namespace Project_OnTheFly
             char valor;
             do
             {
-                Console.Write($"{texto} ");
+                Console.Write(texto);
                 if (!char.TryParse(Console.ReadLine().ToUpper(), out valor) && char.IsWhiteSpace(valor))
                 {
                     Console.WriteLine("Informe uma opção válida...");
