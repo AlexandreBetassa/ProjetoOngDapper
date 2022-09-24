@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Project_OnTheFly;
 using ProjectOngAnimais;
 
 
@@ -21,6 +20,7 @@ namespace ProjectOngAnimais
 
         public void CadastrarPet()
         {
+            Db_ONG db = new Db_ONG();
             do
             {
                 TipoPet = Utils.ColetarString("Informe o tipo de PET: ");
@@ -39,7 +39,10 @@ namespace ProjectOngAnimais
             Console.Write("Informe o nome do PET (Opcional): ");
             NomePet = Console.ReadLine();
             PetDisponivel = 'A';
+            db.InsertTablePet(this);
         }
+
+        
 
         public override string ToString()
         {

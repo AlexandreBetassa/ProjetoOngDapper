@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Project_OnTheFly;
 using ProjectOngAnimais;
 
 namespace ProjectOngAnimais
@@ -66,17 +65,17 @@ namespace ProjectOngAnimais
                 case 1:
                     string nome = Utils.ColetarString("Informe o novo nome: ");
                     string sql = $"update dbo.pessoa set nome='{nome}' where cpf='{cpf}';";
-                    db.UpdateDataPessoa(sql);
+                    db.UpdateTable(sql);
                     return;
                 case 2:
                     string telefone = Utils.ColetarString("Informe o novo telefone: ");
                     sql = $"update dbo.pessoa set telefone = '{telefone}' where cpf = '{cpf}'";
-                    db.UpdateDataPessoa(sql);
+                    db.UpdateTable(sql);
                     return;
                 case 3:
                     string end = Utils.ColetarString("Informe o novo endereço: ");
                     sql = $"update dbo.pessoa set endereco = '{end}' where cpf = '{cpf}'";
-                    db.UpdateDataPessoa(sql);
+                    db.UpdateTable(sql);
                     return;
                 default:
                     Console.WriteLine("Opção inválida!!!");

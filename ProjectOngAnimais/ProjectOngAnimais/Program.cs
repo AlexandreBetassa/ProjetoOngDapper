@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using Project_OnTheFly;
 
 namespace ProjectOngAnimais
 {
@@ -23,7 +22,9 @@ namespace ProjectOngAnimais
                     case 1:
                         MenuPessoas();
                         break;
-
+                    case 2:
+                        MenuPet();
+                        break;
 
                     default:
                         break;
@@ -43,8 +44,9 @@ namespace ProjectOngAnimais
                     case 0:
                         return;
                     case 1:
-                        Console.WriteLine("### ATUALIZAR DADOS ###");
-                        Pessoa.EditarCadastroPessoa();
+                        Console.WriteLine("### CADASTRAR NOVA PESSOA ###");
+                        Pessoa pessoa = new Pessoa();
+                        pessoa.CadastrarPessoa();
                         break;
                     case 2:
                         Console.WriteLine("### ATUALIZAR DADOS ###");
@@ -60,6 +62,42 @@ namespace ProjectOngAnimais
                         db.SelectTablePessoa();
                         Utils.Pause();
                         break;
+                    default:
+                        break;
+                }
+            } while (true);
+        }
+
+        static void MenuPet()
+        {
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("### OPÇÕES PET ###");
+                int op = Utils.ColetarValorInt("Informe a opção desejada (0 - Retornar) (1 - Cadastrar Novo Pet para adoção) ");
+                switch (op)
+                {
+                    case 0:
+                        return;
+                    case 1:
+                        Console.WriteLine("### CADASTRAR NOVO PET PARA ADOÇÃO ###");
+                        Pet pet = new Pet();
+                        pet.CadastrarPet();
+                        break;
+                    //case 2:
+                    //    Console.WriteLine("### ATUALIZAR DADOS ###");
+                    //    Pessoa.EditarCadastroPessoa();
+                    //    break;
+                    //case 3:
+                    //    Console.WriteLine("### DELETAR PESSOA ###");
+                    //    Pessoa.DeletarPessoa();
+                    //    break;
+                    //case 4:
+                    //    Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO ATIVO ###");
+                    //    Db_ONG db = new Db_ONG();
+                    //    db.SelectTablePessoa();
+                    //    Utils.Pause();
+                    //    break;
                     default:
                         break;
                 }

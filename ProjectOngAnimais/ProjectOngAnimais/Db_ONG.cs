@@ -59,9 +59,19 @@ namespace ProjectOngAnimais
             conn.Close();
         }
 
-        public void UpdateDataPessoa(String sql)
+        public void UpdateTable(String sql)
         {
             conn.Open();
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public void InsertTablePet(Pet pet)
+        {
+            conn.Open();
+            string sql = $"insert into dbo.pet (familiaPet, racaPet, sexoPet, nomePet, disponivel) " +
+                $"values ('{pet.TipoPet}', '{pet.Raca}', '{pet.SexoPet}', '{pet.NomePet}', '{pet.PetDisponivel}');";
             SqlCommand cmd = new SqlCommand(sql, conn);
             cmd.ExecuteNonQuery();
             conn.Close();
