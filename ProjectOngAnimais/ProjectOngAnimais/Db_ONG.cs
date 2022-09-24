@@ -77,5 +77,25 @@ namespace ProjectOngAnimais
             conn.Close();
         }
 
+        public void SelectTablePet()
+        {
+            conn.Open();
+            string sql = "select nChipPet, familiaPet, racaPet, sexoPet, nomePet from dbo.pet where disponivel = 'A'";
+            SqlCommand cmd = new SqlCommand(sql, conn);
+
+            using (SqlDataReader r = cmd.ExecuteReader())
+            {
+                while (r.Read())
+                {
+                    Console.WriteLine($"Chip de Identificação: {r.GetInt32(0)}");
+                    Console.WriteLine($"Familia: {r.GetString(1)}");
+                    Console.WriteLine($"Raça: {r.GetString(2)}");
+                    Console.WriteLine($"Sexo: {r.GetString(3)}");
+                    Console.WriteLine($"Nome: {r.GetString(4)}\n");
+                }
+            }
+            conn.Close();
+        }
+
     }
 }

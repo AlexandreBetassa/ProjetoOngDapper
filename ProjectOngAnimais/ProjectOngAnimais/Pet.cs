@@ -42,7 +42,54 @@ namespace ProjectOngAnimais
             db.InsertTablePet(this);
         }
 
-        
+        public static void EditarPet()
+        {
+            do
+            {
+                int id = Utils.ColetarValorInt("Informe o número do Chip do pet que será alterado: ");
+                int op = Utils.ColetarValorInt("Informe o que deseja alterar (1 - Tipo do Pet) (2 - Raça) (3 - Sexo) (4 - Nome): ");
+
+                switch (op)
+                {
+                    case 0:
+                        return;
+                    case 1:
+                        string tipoPet = Utils.ColetarString("informe o tipo do pet: ");
+                        Db_ONG db = new Db_ONG();
+                        string sql = $"update dbo.pet set familiaPet = '{tipoPet}' where nChipPet = {id}";
+                        db.UpdateTable(sql);
+                        return;
+
+                    case 2:
+                        string raca = Utils.ColetarString("Informe a raça: ");
+                        db = new Db_ONG();
+                        sql = $"update dbo.pet set racaPet = '{raca}' where nChipPet = {id};";
+                        db.UpdateTable(sql);
+                        return;
+
+                    case 3:
+                        Char sexo;
+                        do
+                        {
+                            sexo = Utils.ColetarValorChar("Informe o sexo do pet: ");
+                            if (sexo != 'M' && sexo != 'F')
+                            {
+                                sexo = ' ';
+                                break;
+                            }
+                            else break;
+                        } while (true);
+                        db = new Db_ONG();
+
+                        sql = $"update dbo.pet set sexoPet = '{sexo}' where nChipPet = {id};";
+                        db.UpdateTable(sql);
+                        return;
+
+                    default:
+                        break;
+                }
+            } while (true);
+        }
 
         public override string ToString()
         {

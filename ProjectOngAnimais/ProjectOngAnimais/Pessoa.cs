@@ -39,7 +39,7 @@ namespace ProjectOngAnimais
             } while (true);
             do
             {
-                Sexo = Utils.ColetarValorChar("Informe o sexo informado no RG (M  - Masculino) ou (F - Feminino)");
+                Sexo = Utils.ColetarValorChar("Informe o sexo informado no RG (M  - Masculino) ou (F - Feminino): ");
                 if (Sexo != 'M' && Sexo != 'F') Console.WriteLine("Informe um valor válido...");
                 else break;
             } while (true);
@@ -52,9 +52,14 @@ namespace ProjectOngAnimais
 
         public static void EditarCadastroPessoa()
         {
-            Db_ONG db = new Db_ONG();
-            Console.WriteLine("Informe o CPF da pessoa que deseja atualizar: ");
             string cpf = Console.ReadLine();
+
+            Db_ONG db = new Db_ONG();
+            do
+            {
+                Console.Write("Informe o CPF da pessoa que deseja atualizar: ");
+                cpf = Console.ReadLine();
+            } while (!Utils.ValidarCpf(cpf));
             int op = Utils.ColetarValorInt("Informe o campo que deseja atualizar (0 - Cancelar) (1 - Nome) (2 - Telefone) (4 - Endereço): ");
             switch (op)
             {
@@ -86,7 +91,7 @@ namespace ProjectOngAnimais
         public static void DeletarPessoa()
         {
             Db_ONG db = new Db_ONG();
-            Console.WriteLine("Informe o CPF da pessoa terá seu cadastro inativado");
+            Console.WriteLine("Informe o CPF da pessoa terá seu cadastro inativado: ");
             String cpf = Console.ReadLine();
             db.DeleteDataPessoa(cpf);
         }

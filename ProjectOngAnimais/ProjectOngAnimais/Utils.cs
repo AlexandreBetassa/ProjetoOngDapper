@@ -94,7 +94,7 @@ namespace ProjectOngAnimais
             int valor;
             do
             {
-                Console.Write($"{texto}: ");
+                Console.Write(texto);
                 if (!int.TryParse(Console.ReadLine(), out valor) || valor < 0)
                 {
                     Console.WriteLine("Informe uma opção válida...");
@@ -108,7 +108,7 @@ namespace ProjectOngAnimais
             char valor;
             do
             {
-                Console.Write($"{texto} ");
+                Console.Write(texto);
                 if (!char.TryParse(Console.ReadLine().ToUpper(), out valor) && char.IsWhiteSpace(valor))
                 {
                     Console.WriteLine("Informe uma opção válida...");
