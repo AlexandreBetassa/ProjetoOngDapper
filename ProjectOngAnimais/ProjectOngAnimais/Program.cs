@@ -119,13 +119,9 @@ namespace ProjectOngAnimais
             if (cpf == "SAIR") return;
             int pet = BuscarPet(db);
             if (pet == 0) return;
-
-
             confirmacao = Utils.ColetarValorInt("Confirmar adoção? (1 - Sim) (2 - Não): ");
             if (confirmacao != 1) return;
             else ConfirmarAdocao(cpf, pet, db);
-
-
             Utils.Pause();
         }
         static void ConfirmarAdocao(string cpf, int IDpet, Db_ONG db)
