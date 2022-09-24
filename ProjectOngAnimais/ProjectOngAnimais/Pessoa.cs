@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Project_OnTheFly;
 using ProjectOngAnimais;
 
 namespace ProjectOngAnimais
@@ -40,7 +39,7 @@ namespace ProjectOngAnimais
             } while (true);
             do
             {
-                Sexo = Utils.ColetarValorChar("Informe o sexo informado no RG (M  - Masculino) ou (F - Feminino)");
+                Sexo = Utils.ColetarValorChar("Informe o sexo informado no RG (M  - Masculino) ou (F - Feminino): ");
                 if (Sexo != 'M' && Sexo != 'F') Console.WriteLine("Informe um valor válido...");
                 else break;
             } while (true);
@@ -51,39 +50,50 @@ namespace ProjectOngAnimais
             db.InsertTablePessoa(this);
         }
 
-        public void EditarPessoa()
+        public static void EditarCadastroPessoa()
         {
+            string cpf = Console.ReadLine();
+
             Db_ONG db = new Db_ONG();
             do
             {
-                int op = Utils.ColetarValorInt("Informe o campo que deseja atualizar (0 - Cancelar) (1 - Nome) (2 - Telefone) (4 - Endereço): ");
+                Console.Write("Informe o CPF da pessoa que deseja atualizar: ");
+                cpf = Console.ReadLine();
+            } while (!Utils.ValidarCpf(cpf));
+            int op = Utils.ColetarValorInt("Informe o campo que deseja atualizar (0 - Cancelar) (1 - Nome) (2 - Telefone) (4 - Endereço): ");
+            switch (op)
+            {
+                case 0:
+                    Console.WriteLine("Operação cancelada!!!");
+                    Utils.Pause();
+                    return;
+                case 1:
+                    string nome = Utils.ColetarString("Informe o novo nome: ");
+                    string sql = $"update dbo.pessoa set nome='{nome}' where cpf='{cpf}';";
+                    db.UpdateTable(sql);
+                    return;
+                case 2:
+                    string telefone = Utils.ColetarString("Informe o novo telefone: ");
+                    sql = $"update dbo.pessoa set telefone = '{telefone}' where cpf = '{cpf}'";
+                    db.UpdateTable(sql);
+                    return;
+                case 3:
+                    string end = Utils.ColetarString("Informe o novo endereço: ");
+                    sql = $"update dbo.pessoa set endereco = '{end}' where cpf = '{cpf}'";
+                    db.UpdateTable(sql);
+                    return;
+                default:
+                    Console.WriteLine("Opção inválida!!!");
+                    break;
+            }
+        }
 
-                switch (op)
-                {
-                    case 0:
-                        Console.WriteLine("Operação cancelada!!!");
-                        Utils.Pause();
-                        return;
-                    case 1:
-                        Nome = Utils.ColetarString("Informe o novo nome: ");
-                        string sql = $"update dbo.pessoa set nome = {Nome} where cpf = {Cpf}";
-                        db.UpdateDataPessoa(sql);
-                        return;
-                    case 2:
-                        Telefone = Utils.ColetarString("Informe o novo telefone: ");
-                        sql = $"update dbo.pessoa set telefone = {Telefone} where cpf = {Cpf}";
-                        db.UpdateDataPessoa(sql);
-                        return;
-                    case 3:
-                        End = Utils.ColetarString("Informe o novo endereço: ");
-                        sql = $"update dbo.pessoa set endereco = {End} where cpf = {Cpf}";
-                        db.UpdateDataPessoa(sql);
-                        return;
-                    default:
-                        Console.WriteLine("Opção inválida!!!");
-                        break;
-                }
-            } while (true);
+        public static void DeletarPessoa()
+        {
+            Db_ONG db = new Db_ONG();
+            Console.WriteLine("Informe o CPF da pessoa terá seu cadastro inativado: ");
+            String cpf = Console.ReadLine();
+            db.DeleteDataPessoa(cpf);
         }
 
         public override string ToString()
