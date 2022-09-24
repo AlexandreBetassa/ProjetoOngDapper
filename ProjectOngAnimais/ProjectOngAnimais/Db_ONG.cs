@@ -29,10 +29,9 @@ namespace ProjectOngAnimais
             conn.Close();
         }
 
-        public void SelectTablePessoa()
+        public void SelectTablePessoa(string sql)
         {
             conn.Open();
-            string sql = "Select cpf, nome, sexo, telefone, endereco, dataNascimento from pessoa where status = 'A'";
             SqlCommand cmd = new SqlCommand(sql, conn);
             using (SqlDataReader r = cmd.ExecuteReader())
             {
@@ -77,10 +76,9 @@ namespace ProjectOngAnimais
             conn.Close();
         }
 
-        public void SelectTablePet()
+        public void SelectTablePet(string sql)
         {
             conn.Open();
-            string sql = "select nChipPet, familiaPet, racaPet, sexoPet, nomePet from dbo.pet where disponivel = 'A'";
             SqlCommand cmd = new SqlCommand(sql, conn);
 
             using (SqlDataReader r = cmd.ExecuteReader())
@@ -97,5 +95,12 @@ namespace ProjectOngAnimais
             conn.Close();
         }
 
+        public void InsertRegAdocao(string sql)
+        {
+            conn.Open();
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
     }
 }

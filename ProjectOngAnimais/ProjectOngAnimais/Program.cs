@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data;
+using System.Runtime.Serialization;
+using System.Xml;
 
 namespace ProjectOngAnimais
 {
@@ -24,6 +26,9 @@ namespace ProjectOngAnimais
                         break;
                     case 2:
                         MenuPet();
+                        break;
+                    case 3:
+                        NovaAdocao();
                         break;
 
                     default:
@@ -60,7 +65,8 @@ namespace ProjectOngAnimais
                     case 4:
                         Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO ATIVO ###");
                         Db_ONG db = new Db_ONG();
-                        db.SelectTablePessoa();
+                        string sql = "Select cpf, nome, sexo, telefone, endereco, dataNascimento from pessoa where status = 'A'";
+                        db.SelectTablePessoa(sql);
                         Utils.Pause();
                         break;
                     default:
@@ -92,12 +98,90 @@ namespace ProjectOngAnimais
                     case 3:
                         Console.WriteLine("### LISTAR PET's DISPONIVEIS PARA ADOÇÃO ###");
                         Db_ONG db = new Db_ONG();
-                        db.SelectTablePet();
+                        string sql = "select nChipPet, familiaPet, racaPet, sexoPet, nomePet from dbo.pet where disponivel = 'A'";
+                        db.SelectTablePet(sql);
                         Utils.Pause();
                         break;
                     default:
                         break;
                 }
+            } while (true);
+        }
+
+        static void NovaAdocao()
+        {
+            int confirmacao;
+            Db_ONG db = new Db_ONG();
+
+            Console.Clear();
+            Console.WriteLine("### NOVA ADOÇÃO - SELEÇÃO DE CANDIDATO ADOTANTE ###");
+            string cpf = BuscarPessoa(db);
+            if (cpf == "SAIR") return;
+            int pet = BuscarPet(db);
+            if (pet == 0) return;
+
+
+            confirmacao = Utils.ColetarValorInt("Confirmar adoção? (1 - Sim) (2 - Não): ");
+            if (confirmacao != 1) return;
+            else ConfirmarAdocao(cpf, pet, db);
+
+
+            Utils.Pause();
+        }
+        static void ConfirmarAdocao(string cpf, int IDpet, Db_ONG db)
+        {
+            string sql = $"insert into dbo.regAdocao (cpf, nChipPet, dataAdocao) values('{cpf}','{IDpet}', '{DateTime.Now}')";
+            db.InsertRegAdocao(sql);
+        }
+
+        static int BuscarPet(Db_ONG db)
+        {
+            int id, confirmacao;
+
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("### NOVA ADOÇÃO - SELEÇÃO DE PET ###");
+                string sqlPet = "select nChipPet, familiaPet, racaPet, sexoPet, nomePet from dbo.pet where disponivel = 'A'";
+                db.SelectTablePet(sqlPet);
+                id = Utils.ColetarValorInt("Informe o numero do chip de identificação do Pet desejado informado na listagem acima: ");
+                sqlPet = $"select nChipPet, familiaPet, racaPet, sexoPet, nomePet from dbo.pet where nChipPet = {id} and disponivel = 'A'";
+                db.SelectTablePet(sqlPet);
+                confirmacao = Utils.ColetarValorInt("Confirmar seleção de Pet (0 - Cancelar) (1 - Sim) (2 - Nao): ");
+                if (confirmacao == 0) return 0;
+                else if (confirmacao == 1) break;
+                else if (confirmacao != 2)
+                {
+                    Console.WriteLine("Opção Inválida...");
+                    Utils.Pause();
+                }
+                else break;
+            } while (true);
+            Utils.Pause();
+            return id;
+        }
+        static String BuscarPessoa(Db_ONG db)
+        {
+            do
+            {
+                int confirmacao;
+                do
+                {
+                    confirmacao = Utils.ColetarValorInt("Deseja realmente efetuar uma nova adoção (1 - Sim) (2 - Não): ");
+                    if (confirmacao != 1 && confirmacao != 0) Console.WriteLine("Informe uma opção válida...");
+                    else if (confirmacao == 2) return "SAIR";
+                    else break;
+                } while (true);
+                if (confirmacao == 2) return "SAIR";
+
+                string cpf, sql;
+                do cpf = Utils.ColetarString("Informe o CPF da pessoa que deseja adotar: ");
+                while (!Utils.ValidarCpf(cpf));
+                sql = $"Select cpf, nome, sexo, telefone, endereco, dataNascimento from pessoa where cpf ='{cpf}' and status = 'A';";
+                db.SelectTablePessoa(sql);
+                confirmacao = Utils.ColetarValorInt("Confirmar candidato (1 - Sim) (2 - Não): ");
+                Utils.Pause();
+                if (confirmacao == 1) return cpf;
             } while (true);
         }
     }
