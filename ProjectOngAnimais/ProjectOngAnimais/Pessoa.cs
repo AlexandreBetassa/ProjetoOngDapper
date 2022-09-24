@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace ProjectOngAnimais
 
         public void CadastrarPessoa()
         {
+            Db_ONG db = new Db_ONG();
             do
             {
                 Nome = Utils.ColetarString("Informe seu nome: ");
@@ -46,6 +48,42 @@ namespace ProjectOngAnimais
             End = Utils.ColetarString("Informe seu endereço completo: ");
             Telefone = Utils.ColetarString("Informe o número do teledone com DDD: ");
             Status = 'A';
+            db.InsertTablePessoa(this);
+        }
+
+        public void EditarPessoa()
+        {
+            Db_ONG db = new Db_ONG();
+            do
+            {
+                int op = Utils.ColetarValorInt("Informe o campo que deseja atualizar (0 - Cancelar) (1 - Nome) (2 - Telefone) (4 - Endereço): ");
+
+                switch (op)
+                {
+                    case 0:
+                        Console.WriteLine("Operação cancelada!!!");
+                        Utils.Pause();
+                        return;
+                    case 1:
+                        Nome = Utils.ColetarString("Informe o novo nome: ");
+                        string sql = $"update dbo.pessoa set nome = {Nome} where cpf = {Cpf}";
+                        db.UpdateDataPessoa(sql);
+                        return;
+                    case 2:
+                        Telefone = Utils.ColetarString("Informe o novo telefone: ");
+                        sql = $"update dbo.pessoa set telefone = {Telefone} where cpf = {Cpf}";
+                        db.UpdateDataPessoa(sql);
+                        return;
+                    case 3:
+                        End = Utils.ColetarString("Informe o novo endereço: ");
+                        sql = $"update dbo.pessoa set endereco = {End} where cpf = {Cpf}";
+                        db.UpdateDataPessoa(sql);
+                        return;
+                    default:
+                        Console.WriteLine("Opção inválida!!!");
+                        break;
+                }
+            } while (true);
         }
 
         public override string ToString()
