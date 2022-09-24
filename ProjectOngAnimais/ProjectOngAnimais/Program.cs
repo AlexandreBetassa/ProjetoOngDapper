@@ -6,10 +6,8 @@ namespace ProjectOngAnimais
     {
         static void Main(string[] args)
         {
-            Pet p = new Pet();
-            p.CadastrarPet();
-
-            Console.WriteLine(p);
+            Db_ONG db = new Db_ONG();
+            db.SelectTablePessoa();
         }
     }
 }

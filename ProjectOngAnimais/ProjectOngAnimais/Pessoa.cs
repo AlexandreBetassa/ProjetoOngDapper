@@ -14,8 +14,8 @@ namespace ProjectOngAnimais
         public String Nome { get; set; }
         public Char Sexo { get; set; }
         public String Telefone { get; set; }
-        public Endereco End { get; set; }
-        public Char Ativa { get; set; }
+        public String End { get; set; }
+        public Char Status { get; set; }
         public DateTime DataNascimento { get; set; }
 
         public Pessoa() { }
@@ -43,15 +43,16 @@ namespace ProjectOngAnimais
                 else break;
             } while (true);
 
+            End = Utils.ColetarString("Informe seu endereço completo: ");
             Telefone = Utils.ColetarString("Informe o número do teledone com DDD: ");
-            Ativa = 'A';
+            Status = 'A';
         }
 
         public override string ToString()
         {
             return $"Nome: {Nome}\nCPF: {Cpf.Substring(0, 3)}.{Cpf.Substring(3, 3)}.{Cpf.Substring(6, 3)}-{Cpf.Substring(9, 2)}\n" +
                 $"Sexo: {Sexo}\nTelefone: ({Telefone.Substring(0, 2)}){Telefone.Substring(2, 5)}-{Telefone.Substring(7, 4)}\n" +
-                $"Endereço: \nData de nascimento: {DataNascimento.ToShortDateString()}".ToString();
+                $"Endereço: {End}\nData de nascimento: {DataNascimento.ToShortDateString()}".ToString();
         }
 
     }
