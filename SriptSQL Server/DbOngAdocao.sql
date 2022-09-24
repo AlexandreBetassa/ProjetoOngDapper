@@ -9,9 +9,14 @@ sexo char(1) not null,
 telefone varchar(11) not null,
 endereco varchar(50),
 ativa char(1) not null,
+dataNascimento date not null
 
 constraint pk_pessoa primary key(cpf)
 );
+
+
+alter table pessoa
+add dataNascimento date not null
 
 create table pet(
 nChipPet int identity not null,
