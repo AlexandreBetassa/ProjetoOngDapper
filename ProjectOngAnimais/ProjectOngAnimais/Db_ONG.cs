@@ -22,15 +22,9 @@ namespace ProjectOngAnimais
         public void InsertTablePessoa(Pessoa pessoa)
         {
             conn.Open();
-            string sql = "insert into dbo.pessoa (cpf, nome, sexo, telefone, endereco, dataNascimento, status) values (@cpf, @nome, @sexo, @telefone, @endereco, @dataNasc, @status);";
+            string sql = $"insert into dbo.pessoa (cpf, nome, sexo, telefone, endereco, dataNascimento, status) values ('{pessoa.Cpf}' , " +
+                $"'{pessoa.Nome}', '{pessoa.Sexo}', '{pessoa.Telefone}', '{pessoa.End}', '{pessoa.DataNascimento}', '{pessoa.Status}');";
             SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.Add(new SqlParameter("@cpf", pessoa.Cpf));
-            cmd.Parameters.Add(new SqlParameter("@nome", pessoa.Nome));
-            cmd.Parameters.Add(new SqlParameter("@sexo", pessoa.Sexo));
-            cmd.Parameters.Add(new SqlParameter("@telefone", pessoa.Telefone));
-            cmd.Parameters.Add(new SqlParameter("@endereco", pessoa.End));
-            cmd.Parameters.Add(new SqlParameter("@dataNasc", pessoa.DataNascimento));
-            cmd.Parameters.Add(new SqlParameter("@status", pessoa.Status));
             cmd.ExecuteNonQuery();
             conn.Close();
         }
@@ -58,17 +52,16 @@ namespace ProjectOngAnimais
         public void DeleteDataPessoa(String cpf)
         {
             conn.Open();
-            string sql = $"update dbo.pessoa set status = 'A' where cpf = {cpf}";
+            string sql = $"update dbo.pessoa set status = 'I' where cpf = '{cpf}'";
             SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.Add(new SqlParameter("@cpf", cpf));
             cmd.ExecuteNonQuery();
             conn.Close();
         }
 
-        public void UpdateDataPessoa(String coluna, String cpf)
+        public void UpdateDataPessoa(String sql)
         {
             conn.Open();
-            string sql = $"update pessoa set {coluna} where cpf = {cpf}";
+           // string sql = $"update pessoa set {coluna} = {valor} where cpf = {cpf}";
             SqlCommand cmd = new SqlCommand(sql,conn);
             cmd.ExecuteNonQuery();
             conn.Close();
