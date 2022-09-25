@@ -29,7 +29,7 @@ namespace ProjectOngAnimais
                 if (Nome.Length > 50) Console.WriteLine("Informe um nome que contenha menos de 50 caracteres");
                 else break;
             } while (true);
-            do Cpf = Utils.ColetarString("Informe seu CPF (Somente Números): ");
+            do Cpf = Utils.ColetarString("Informe seu CPF: ").Replace("-", "").Replace(".", "");
             while (!Utils.ValidarCpf(Cpf));
             do
             {
@@ -45,7 +45,7 @@ namespace ProjectOngAnimais
             } while (true);
 
             End = Utils.ColetarString("Informe seu endereço completo: ");
-            Telefone = Utils.ColetarString("Informe o número do teledone com DDD: ");
+            Telefone = Utils.ColetarString("Informe o número do teledone com DDD: ").Replace("(", "").Replace("-", "").Replace(")", "");
             Status = 'A';
             db.InsertTablePessoa(this);
         }
@@ -58,7 +58,7 @@ namespace ProjectOngAnimais
             do
             {
                 Console.Write("Informe o CPF da pessoa que deseja atualizar: ");
-                cpf = Console.ReadLine();
+                cpf = Console.ReadLine().Replace("-", "").Replace(".", "");
             } while (!Utils.ValidarCpf(cpf));
             int op = Utils.ColetarValorInt("Informe o campo que deseja atualizar (0 - Cancelar) (1 - Nome) (2 - Telefone) (4 - Endereço): ");
             switch (op)
@@ -73,7 +73,7 @@ namespace ProjectOngAnimais
                     db.UpdateTable(sql);
                     return;
                 case 2:
-                    string telefone = Utils.ColetarString("Informe o novo telefone: ");
+                    string telefone = Utils.ColetarString("Informe o novo telefone: ").Replace("(", "").Replace("-", "").Replace(")", "");
                     sql = $"update dbo.pessoa set telefone = '{telefone}' where cpf = '{cpf}'";
                     db.UpdateTable(sql);
                     return;
@@ -91,8 +91,9 @@ namespace ProjectOngAnimais
         public static void DeletarPessoa()
         {
             Db_ONG db = new Db_ONG();
-            Console.WriteLine("Informe o CPF da pessoa terá seu cadastro inativado: ");
-            String cpf = Console.ReadLine();
+            String cpf;
+            do cpf = Utils.ColetarString("Informe o CPF da pessoa terá seu cadastro inativado: ").Replace("-", "").Replace(".", "");
+            while (!Utils.ValidarCpf(cpf));
             db.DeleteDataPessoa(cpf);
         }
 

@@ -55,14 +55,17 @@ namespace ProjectOngAnimais
                         pessoa.CadastrarPessoa();
                         break;
                     case 2:
+                        Console.Clear();
                         Console.WriteLine("### ATUALIZAR DADOS ###");
                         Pessoa.EditarCadastroPessoa();
                         break;
                     case 3:
+                        Console.Clear();
                         Console.WriteLine("### DELETAR PESSOA ###");
                         Pessoa.DeletarPessoa();
                         break;
                     case 4:
+                        Console.Clear();
                         Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO ATIVO ###");
                         Db_ONG db = new Db_ONG();
                         string sql = "Select cpf, nome, sexo, telefone, endereco, dataNascimento from pessoa where status = 'A'";

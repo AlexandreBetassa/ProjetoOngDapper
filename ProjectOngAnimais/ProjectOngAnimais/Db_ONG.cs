@@ -21,11 +21,34 @@ namespace ProjectOngAnimais
 
         public void InsertTablePessoa(Pessoa pessoa)
         {
-            conn.Open();
-            string sql = $"insert into dbo.pessoa (cpf, nome, sexo, telefone, endereco, dataNascimento, status) values ('{pessoa.Cpf}' , " +
-                $"'{pessoa.Nome}', '{pessoa.Sexo}', '{pessoa.Telefone}', '{pessoa.End}', '{pessoa.DataNascimento}', '{pessoa.Status}');";
-            SqlCommand cmd = new SqlCommand(sql, conn);
-            cmd.ExecuteNonQuery();
+            int row;
+            try
+            {
+                conn.Open();
+                string sql = $"insert into dbo.pessoa (cpf, nome, sexo, telefone, endereco, dataNascimento, status) values ('{pessoa.Cpf}' , " +
+                    $"'{pessoa.Nome}', '{pessoa.Sexo}', '{pessoa.Telefone}', '{pessoa.End}', '{pessoa.DataNascimento}', '{pessoa.Status}');";
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                row = cmd.ExecuteNonQuery();
+                Console.WriteLine(row);
+                Console.ReadKey();
+            }
+            catch (SqlException e)
+            {
+                switch (e.Number)
+                {
+                    case 2627:
+                        Console.WriteLine("Já existe um usuário cadastrado com esse CPF!!!");
+                        break;
+                    case 2628:
+                        Console.WriteLine("Valor de cadeia de caracteres acima do permitido!!!");
+                        break;
+                    default:
+                        break;
+                }
+
+                Console.WriteLine(e);
+                Utils.Pause();
+            }
             conn.Close();
         }
 
