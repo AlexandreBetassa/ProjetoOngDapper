@@ -94,7 +94,19 @@ namespace ProjectOngAnimais
             String cpf;
             do cpf = Utils.ColetarString("Informe o CPF da pessoa terá seu cadastro inativado: ").Replace("-", "").Replace(".", "");
             while (!Utils.ValidarCpf(cpf));
-            db.DeleteDataPessoa(cpf);
+            string sql = $"Select cpf, nome, sexo, telefone, endereco, dataNascimento from pessoa where status = 'A' and cpf = {cpf}";
+            if (!db.SelectTablePessoa(sql)) return;
+            else
+            {
+                int op = Utils.ColetarValorInt("Deseja confirmar a inativação do cadastro?\n(1 - Sim)\n(2 - Não)\nInforme opção: ");
+                if (op == 1)
+                {
+                    sql = $"update dbo.pessoa set status = 'I' where cpf = '{cpf}';";
+                    if (db.UpdateTable(sql) != 0) Console.WriteLine("Inativação do cadastro efetuado com sucesso!!!");
+                    else Console.WriteLine("Erro na solicitação");
+                }
+            }
+            Utils.Pause();
         }
 
         public override string ToString()

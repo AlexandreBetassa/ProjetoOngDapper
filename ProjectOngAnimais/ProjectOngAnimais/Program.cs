@@ -9,7 +9,6 @@ namespace ProjectOngAnimais
     {
         static void Main(string[] args)
         {
-
             do
             {
                 Console.Clear();
@@ -48,7 +47,7 @@ namespace ProjectOngAnimais
                 Console.WriteLine("### OPÇÕES PESSOAS ADOTANTES ###");
                 int op = Utils.ColetarValorInt("Informe a opção desejada\n(0 - Retornar)\n(1 - Cadastrar nova pessoa)\n(2 - Atualizar Dados)\n" +
                     "(3 - Inativar Cadastro)\n(4 - Listar Pessoas com Cadastro Ativo)\n(5 - Listar cadastro de inativos)\n(6 - Buscar CPF)\n" +
-                    "7 - Reativar cadastro\nInforme a opção: ");
+                    "(7 - Reativar cadastro)\nInforme a opção: ");
                 switch (op)
                 {
                     case 0:
@@ -82,6 +81,19 @@ namespace ProjectOngAnimais
                         db = new Db_ONG();
                         sql = "Select cpf, nome, sexo, telefone, endereco, dataNascimento from pessoa where status = 'I'";
                         db.SelectTablePessoa(sql);
+                        Utils.Pause();
+                        break;
+                    case 6:
+                        Console.Clear();
+                        string cpf;
+                        do cpf = Utils.ColetarString("Informe o CPF a ser reativado: ");
+                        while (!Utils.ValidarCpf(cpf));
+                        BuscarCadastro(cpf);
+                        Utils.Pause();
+                        break;
+                    case 7:
+                        Console.Clear();
+                        ReativarCadastro();
                         Utils.Pause();
                         break;
                     default:
@@ -130,11 +142,11 @@ namespace ProjectOngAnimais
             Db_ONG db = new Db_ONG();
 
             Console.Clear();
-            Console.WriteLine("### NOVA ADOÇÃO - SELEÇÃO DE CANDIDATO ADOTANTE ###");
-            string cpf = BuscarPessoa(db);
-            if (cpf == "0") return;
+            Console.WriteLine("### NOVA ADOÇÃO ###");
             int pet = BuscarPet(db);
             if (pet == 0) return;
+            string cpf = BuscarPessoa(db);
+            if (cpf == "0") return;
             confirmacao = Utils.ColetarValorInt("Confirmar adoção?\n(1 - Sim)\n(2 - Não)\nInforme opção: ");
             if (confirmacao != 1) return;
             else ConfirmarAdocao(cpf, pet, db);
@@ -149,13 +161,8 @@ namespace ProjectOngAnimais
                 sql = $"update dbo.pet set disponivel = 'I' where nChipPet = {IDpet}";
                 db.UpdateTable(sql);
                 Console.WriteLine("Adoção efetuada com sucesso!!!");
-                Utils.Pause();
             }
-            else
-            {
-                Console.WriteLine("Houve um problema na solicitação");
-                Utils.Pause();
-            }
+            else Console.WriteLine("Houve um problema na solicitação");
         }
 
         static int BuscarPet(Db_ONG db)
@@ -167,7 +174,7 @@ namespace ProjectOngAnimais
                 Console.Clear();
                 Console.WriteLine("### NOVA ADOÇÃO - SELEÇÃO DE PET ###");
                 string sqlPet = "select nChipPet, familiaPet, racaPet, sexoPet, nomePet from dbo.pet where disponivel = 'A'";
-                db.SelectTablePet(sqlPet);
+                if (!db.SelectTablePet(sqlPet)) return 0;
                 id = Utils.ColetarValorInt("Informe o numero do chip de identificação do Pet desejado informado na listagem acima: ");
                 sqlPet = $"select nChipPet, familiaPet, racaPet, sexoPet, nomePet from dbo.pet where nChipPet = {id} and disponivel = 'A'";
                 if (db.SelectTablePet(sqlPet))
@@ -192,16 +199,7 @@ namespace ProjectOngAnimais
             do
             {
                 int confirmacao;
-                do
-                {
-                    confirmacao = Utils.ColetarValorInt("Deseja realmente efetuar uma nova adoção\n(1 - Sim)\n(2 - Não)\nInforme opção: ");
-                    if (confirmacao == 1) break;
-                    else if (confirmacao == 2) return "0";
-                    else Console.WriteLine("Selecione opção válida...");
-                } while (true);
-
                 string cpf, sql;
-
                 do cpf = Utils.ColetarString("Informe o CPF da pessoa que deseja adotar: ");
                 while (!Utils.ValidarCpf(cpf));
                 sql = $"Select cpf, nome, sexo, telefone, endereco, dataNascimento from pessoa where cpf ='{cpf}' and status = 'A';";
@@ -214,9 +212,63 @@ namespace ProjectOngAnimais
         static void ListarRegAdocoes()
         {
             Db_ONG db = new Db_ONG();
-            string sql = "select ra.cpf, p.nome, ra.nChipPet, pt.familiaPet, pt.racaPet, ra.dataAdocao from pessoa p, pet pt, regAdocao ra where p.cpf = ra.cpf and pt.nChipPet = ra.nChipPet;";
-            db.SelectRegAdocao(sql);
-            Utils.Pause();
+            do
+            {
+                int op = Utils.ColetarValorInt("(0 - Retornar)\n(1 - Consultar todos os registros)\n(2 - Consultar por CPF)\n(Consultar pelo chip de identificação): ");
+                switch (op)
+                {
+                    case 0:
+                        return;
+                    case 1:
+                        string sql = "select ra.cpf, p.nome, ra.nChipPet, pt.familiaPet, pt.racaPet, ra.dataAdocao from pessoa p, pet pt, regAdocao ra where p.cpf = ra.cpf and pt.nChipPet = ra.nChipPet;";
+                        db.SelectRegAdocao(sql);
+                        Utils.Pause();
+                        break;
+
+                    case 2:
+                        string cpf = Utils.ColetarString("Informe o número do CPF do tutor: ");
+                        sql = $"select ra.cpf, p.nome, ra.nChipPet, pt.familiaPet, pt.racaPet, ra.dataAdocao from pessoa p, pet pt, regAdocao ra where ra.cpf = {cpf} and p.cpf = ra.cpf and pt.nChipPet = ra.nChipPet;";
+                        db.SelectRegAdocao(sql);
+                        Utils.Pause();
+                        break;
+
+                    case 3:
+                        int id = Utils.ColetarValorInt("Informe o número do Chip do animal: ");
+                        sql = $"select ra.cpf, p.nome, ra.nChipPet, pt.familiaPet, pt.racaPet, ra.dataAdocao from pessoa p, pet pt, regAdocao ra where ra.nChipPet = {id} and p.cpf = ra.cpf and pt.nChipPet = ra.nChipPet;";
+                        db.SelectRegAdocao(sql);
+                        Utils.Pause();
+                        break;
+                    default:
+                        Console.WriteLine("Opção inválida");
+                        break;
+                }
+            } while (true);
+        }
+
+        static bool BuscarCadastro(string cpf)
+        {
+
+            string sql = $"select cpf, nome, sexo, telefone, endereco, dataNascimento, status from dbo.pessoa where cpf = '{cpf}';";
+            Db_ONG db = new Db_ONG();
+            if (!db.SelectTablePessoaInativa(sql)) return false;
+            else return true;
+        }
+
+        static void ReativarCadastro()
+        {
+            Db_ONG db = new Db_ONG();
+            string cpf;
+            do cpf = Utils.ColetarString("Informe o CPF a ser reativado: ");
+            while (!Utils.ValidarCpf(cpf));
+            if (!BuscarCadastro(cpf)) return;
+            int op = Utils.ColetarValorInt("Confirmar reativação\n(1 - Sim)\n(2 - Não)\nInforme opção: ");
+            if (op == 2) return;
+            else
+            {
+                string sql = $"update dbo.pessoa set status = 'A' where cpf = {cpf}";
+                if (db.UpdateTable(sql) != 0) Console.WriteLine("Cadastro reativado com sucesso");
+                else Console.WriteLine("Erro na solicitação");
+            }
         }
     }
 }
