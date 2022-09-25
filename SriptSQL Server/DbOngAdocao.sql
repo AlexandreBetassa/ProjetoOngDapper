@@ -1,5 +1,6 @@
 create database ong_adocao
 
+
 use ong_adocao;
 
 create table pessoa(
@@ -50,4 +51,3 @@ uf varchar(3) not null
 
 foreign key (cpf) references pessoa(cpf)
 );
-

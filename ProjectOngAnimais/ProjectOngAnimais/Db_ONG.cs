@@ -56,31 +56,37 @@ namespace ProjectOngAnimais
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
-                using (SqlDataReader r = cmd.ExecuteReader())
+                SqlDataReader r = cmd.ExecuteReader();
+
+                if (!r.HasRows)
                 {
-                    if (!r.HasRows)
+                    Console.WriteLine("Usuário não localizado!!!\nOperação cancelada...");
+                    conn.Close();
+                    Utils.Pause();
+                    return false;
+                }
+
+                while (r.Read())
+                {
+                    try
                     {
-                        Console.WriteLine("Usuário não localizado!!!\nOperação cancelada...");
-                        conn.Close();
-                        Utils.Pause();
-                        return false;
+                        Console.WriteLine($"Nome: {r.GetString(1)}");
+                        Console.WriteLine($"CPF: {r.GetString(0)}");
+                        Console.WriteLine($"Sexo: {r.GetString(2)}");
+                        Console.WriteLine($"Tel: {r.GetString(3)}");
+                        Console.WriteLine($"Endereço: {r.GetString(4)}");
+                        Console.WriteLine($"Data de nascimento: {r.GetDateTime(5).ToShortDateString()}");
+                        Console.WriteLine();
                     }
-                    else
+                    catch (SqlException e)
                     {
-                        while (r.Read())
-                        {
-                            Console.WriteLine($"Nome: {r.GetString(1)}");
-                            Console.WriteLine($"CPF: {r.GetString(0)}");
-                            Console.WriteLine($"Sexo: {r.GetString(2)}");
-                            Console.WriteLine($"Tel: {r.GetString(3)}");
-                            Console.WriteLine($"Endereço: {r.GetString(4)}");
-                            Console.WriteLine($"Data de nascimento: {r.GetDateTime(5).ToShortDateString()}");
-                            Console.WriteLine();
-                        }
-                        conn.Close();
-                        return true;
+                        Console.WriteLine("Código erro " + e.Number + ".Contate o adiministrador");
                     }
                 }
+                conn.Close();
+                return true;
+
+
             }
             catch (SqlException e)
             {

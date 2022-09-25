@@ -14,7 +14,8 @@ namespace ProjectOngAnimais
             {
                 Console.Clear();
                 Console.WriteLine("### ONG ADOTE UM PET ###\n### BEM VINDO ###");
-                int op = Utils.ColetarValorInt("Informe a opção desejada (0 - Sair) (1 - Opções pessoas adotantes) (2 - Opções Pets) (3 - Nova adoção) (4 - Listar Registro de adoções): ");
+                int op = Utils.ColetarValorInt("Informe a opção desejada\n(0 - Sair)\n(1 - Opções pessoas adotantes)\n(2 - Opções Pets)\n" +
+                    "(3 - Nova adoção)\n(4 - Listar Registro de adoções)\nInforme opção: ");
                 switch (op)
                 {
                     case 0:
@@ -45,8 +46,9 @@ namespace ProjectOngAnimais
             {
                 Console.Clear();
                 Console.WriteLine("### OPÇÕES PESSOAS ADOTANTES ###");
-                int op = Utils.ColetarValorInt("Informe a opção desejada (0 - Retornar) (1 - Cadastrar nova pessoa) (2 - Atualizar Dados) " +
-                    "(3 - Inativar Cadastro) (4 - Listar Pessoas com Cadastro Ativo): ");
+                int op = Utils.ColetarValorInt("Informe a opção desejada\n(0 - Retornar)\n(1 - Cadastrar nova pessoa)\n(2 - Atualizar Dados)\n" +
+                    "(3 - Inativar Cadastro)\n(4 - Listar Pessoas com Cadastro Ativo)\n(5 - Listar cadastro de inativos)\n(6 - Buscar CPF)\n" +
+                    "7 - Reativar cadastro\nInforme a opção: ");
                 switch (op)
                 {
                     case 0:
@@ -74,6 +76,14 @@ namespace ProjectOngAnimais
                         db.SelectTablePessoa(sql);
                         Utils.Pause();
                         break;
+                    case 5:
+                        Console.Clear();
+                        Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO INATIVO ###");
+                        db = new Db_ONG();
+                        sql = "Select cpf, nome, sexo, telefone, endereco, dataNascimento from pessoa where status = 'I'";
+                        db.SelectTablePessoa(sql);
+                        Utils.Pause();
+                        break;
                     default:
                         break;
                 }
@@ -86,7 +96,8 @@ namespace ProjectOngAnimais
             {
                 Console.Clear();
                 Console.WriteLine("### OPÇÕES PET ###");
-                int op = Utils.ColetarValorInt("Informe a opção desejada (0 - Retornar) (1 - Cadastrar Novo Pet para adoção) (2 - Editar Dados do Pet) (3 - Listar Pets disponiveis para adoção): ");
+                int op = Utils.ColetarValorInt("Informe a opção desejada\n(0 - Retornar)\n(1 - Cadastrar Novo Pet para adoção)\n(2 - Editar Dados do Pet)\n" +
+                    "(3 - Listar Pets disponiveis para adoção)\nInforme opção: ");
                 switch (op)
                 {
                     case 0:
@@ -124,7 +135,7 @@ namespace ProjectOngAnimais
             if (cpf == "0") return;
             int pet = BuscarPet(db);
             if (pet == 0) return;
-            confirmacao = Utils.ColetarValorInt("Confirmar adoção? (1 - Sim) (2 - Não): ");
+            confirmacao = Utils.ColetarValorInt("Confirmar adoção?\n(1 - Sim)\n(2 - Não)\nInforme opção: ");
             if (confirmacao != 1) return;
             else ConfirmarAdocao(cpf, pet, db);
             Utils.Pause();
@@ -163,7 +174,7 @@ namespace ProjectOngAnimais
                 {
                     do
                     {
-                        confirmacao = Utils.ColetarValorInt("Confirmar seleção de Pet (0 - Cancelar) (1 - Sim): ");
+                        confirmacao = Utils.ColetarValorInt("Confirmar seleção de Pet\n(0 - Cancelar)\n(1 - Sim)\nInforme opção: ");
                         if (confirmacao == 0) return 0;
                         else if (confirmacao == 1) return id;
                         else
@@ -183,7 +194,7 @@ namespace ProjectOngAnimais
                 int confirmacao;
                 do
                 {
-                    confirmacao = Utils.ColetarValorInt("Deseja realmente efetuar uma nova adoção (1 - Sim) (2 - Não): ");
+                    confirmacao = Utils.ColetarValorInt("Deseja realmente efetuar uma nova adoção\n(1 - Sim)\n(2 - Não)\nInforme opção: ");
                     if (confirmacao == 1) break;
                     else if (confirmacao == 2) return "0";
                     else Console.WriteLine("Selecione opção válida...");
@@ -195,7 +206,7 @@ namespace ProjectOngAnimais
                 while (!Utils.ValidarCpf(cpf));
                 sql = $"Select cpf, nome, sexo, telefone, endereco, dataNascimento from pessoa where cpf ='{cpf}' and status = 'A';";
                 if (!db.SelectTablePessoa(sql)) return "0";
-                confirmacao = Utils.ColetarValorInt("Confirmar candidato (1 - Sim) (2 - Não): ");
+                confirmacao = Utils.ColetarValorInt("Confirmar candidato\n(1 - Sim)\n(2 - Não)\nInforme opção: ");
                 if (confirmacao == 1) return cpf;
             } while (true);
         }
@@ -203,7 +214,7 @@ namespace ProjectOngAnimais
         static void ListarRegAdocoes()
         {
             Db_ONG db = new Db_ONG();
-            string sql = "select p.cpf, p.nome, pt.nChipPet, pt.familiaPet, pt.racaPet, ra.dataAdocao from pessoa p, pet pt, regAdocao ra where ra.cpf = p.cpf and pt.nChipPet = ra.nChipPet;";
+            string sql = "select ra.cpf, p.nome, ra.nChipPet, pt.familiaPet, pt.racaPet, ra.dataAdocao from pessoa p, pet pt, regAdocao ra where p.cpf = ra.cpf and pt.nChipPet = ra.nChipPet;";
             db.SelectRegAdocao(sql);
             Utils.Pause();
         }
