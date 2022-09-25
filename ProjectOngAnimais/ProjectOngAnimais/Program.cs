@@ -14,7 +14,7 @@ namespace ProjectOngAnimais
             {
                 Console.Clear();
                 Console.WriteLine("### ONG ADOTE UM PET ###\n### BEM VINDO ###");
-                int op = Utils.ColetarValorInt("Informe a opção desejada (0 - Sair) (1 - Opções pessoas adotantes) (2 - Opções Pets) (3 - Nova adoção): ");
+                int op = Utils.ColetarValorInt("Informe a opção desejada (0 - Sair) (1 - Opções pessoas adotantes) (2 - Opções Pets) (3 - Nova adoção) (4 - Listar Registro de adoções): ");
                 switch (op)
                 {
                     case 0:
@@ -30,7 +30,9 @@ namespace ProjectOngAnimais
                     case 3:
                         NovaAdocao();
                         break;
-
+                    case 4:
+                        ListarRegAdocoes();
+                        break;
                     default:
                         break;
                 }
@@ -127,6 +129,7 @@ namespace ProjectOngAnimais
             else ConfirmarAdocao(cpf, pet, db);
             Utils.Pause();
         }
+
         static void ConfirmarAdocao(string cpf, int IDpet, Db_ONG db)
         {
             string sql = $"insert into dbo.regAdocao (cpf, nChipPet, dataAdocao) values('{cpf}','{IDpet}', '{DateTime.Now}')";
@@ -172,6 +175,7 @@ namespace ProjectOngAnimais
                 }
             } while (true);
         }
+
         static String BuscarPessoa(Db_ONG db)
         {
             do
@@ -194,6 +198,14 @@ namespace ProjectOngAnimais
                 confirmacao = Utils.ColetarValorInt("Confirmar candidato (1 - Sim) (2 - Não): ");
                 if (confirmacao == 1) return cpf;
             } while (true);
+        }
+
+        static void ListarRegAdocoes()
+        {
+            Db_ONG db = new Db_ONG();
+            string sql = "select p.cpf, p.nome, pt.nChipPet, pt.familiaPet, pt.racaPet, ra.dataAdocao from pessoa p, pet pt, regAdocao ra where ra.cpf = p.cpf and pt.nChipPet = ra.nChipPet;";
+            db.SelectRegAdocao(sql);
+            Utils.Pause();
         }
     }
 }

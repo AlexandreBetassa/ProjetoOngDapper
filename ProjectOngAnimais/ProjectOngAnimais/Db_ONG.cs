@@ -192,5 +192,41 @@ namespace ProjectOngAnimais
             }
             return row;
         }
+
+        public int SelectRegAdocao(string sql)
+        {
+            int row = 0;
+            try
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                using (SqlDataReader r = cmd.ExecuteReader())
+                {
+                    if (!r.HasRows)
+                    {
+                        Console.WriteLine("Registro não encontrado...");
+                        conn.Close();
+                        return row;
+                    }
+                    else
+                    {
+                        while (r.Read())
+                        {
+                            Console.WriteLine($"CPF do tutor: {r.GetString(0)}");
+                            Console.WriteLine($"Nome do tutor: {r.GetString(1)}");
+                            Console.WriteLine($"Número do chip do pet: {r.GetInt32(2)}");
+                            Console.WriteLine($"Tipo do pet: {r.GetString(3)}");
+                            Console.WriteLine($"Raça do pet: {r.GetString(4)}");
+                            Console.WriteLine($"Data de adoção: {r.GetDateTime(5).ToShortDateString()}");
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("Erro código " + e.Number + "Contate o administrador");
+            }
+            return row;
+        }
     }
 }
