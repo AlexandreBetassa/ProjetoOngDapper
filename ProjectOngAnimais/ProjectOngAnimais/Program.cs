@@ -214,18 +214,24 @@ namespace ProjectOngAnimais
             Db_ONG db = new Db_ONG();
             do
             {
-                int op = Utils.ColetarValorInt("(0 - Retornar)\n(1 - Consultar todos os registros)\n(2 - Consultar por CPF)\n(Consultar pelo chip de identificação): ");
+                Console.Clear();
+                Console.WriteLine("### REGISTROS DE ADOÇÕES ###");
+                int op = Utils.ColetarValorInt("(0 - Retornar)\n(1 - Consultar todos os registros)\n(2 - Consultar por CPF)\n(3 - Consultar pelo chip de identificação): ");
                 switch (op)
                 {
                     case 0:
                         return;
                     case 1:
+                        Console.Clear();
+                        Console.WriteLine("### CONSULTA A TODOS OS REGISTROS DE ADOÇÕES ###");
                         string sql = "select ra.cpf, p.nome, ra.nChipPet, pt.familiaPet, pt.racaPet, ra.dataAdocao from pessoa p, pet pt, regAdocao ra where p.cpf = ra.cpf and pt.nChipPet = ra.nChipPet;";
                         db.SelectRegAdocao(sql);
                         Utils.Pause();
                         break;
 
                     case 2:
+                        Console.Clear();
+                        Console.WriteLine("### CONSULTA A REGISTROS DE ADOÇÕES POR CPF###");
                         string cpf = Utils.ColetarString("Informe o número do CPF do tutor: ");
                         sql = $"select ra.cpf, p.nome, ra.nChipPet, pt.familiaPet, pt.racaPet, ra.dataAdocao from pessoa p, pet pt, regAdocao ra where ra.cpf = {cpf} and p.cpf = ra.cpf and pt.nChipPet = ra.nChipPet;";
                         db.SelectRegAdocao(sql);
@@ -233,6 +239,8 @@ namespace ProjectOngAnimais
                         break;
 
                     case 3:
+                        Console.Clear();
+                        Console.WriteLine("### CONSULTA A REGISTROS DE ADOÇÕES PELO CHIP DO ANIMAL###");
                         int id = Utils.ColetarValorInt("Informe o número do Chip do animal: ");
                         sql = $"select ra.cpf, p.nome, ra.nChipPet, pt.familiaPet, pt.racaPet, ra.dataAdocao from pessoa p, pet pt, regAdocao ra where ra.nChipPet = {id} and p.cpf = ra.cpf and pt.nChipPet = ra.nChipPet;";
                         db.SelectRegAdocao(sql);
