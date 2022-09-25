@@ -119,7 +119,7 @@ namespace ProjectOngAnimais
             Console.Clear();
             Console.WriteLine("### NOVA ADOÇÃO - SELEÇÃO DE CANDIDATO ADOTANTE ###");
             string cpf = BuscarPessoa(db);
-            if (cpf == "SAIR") return;
+            if (cpf == "0") return;
             int pet = BuscarPet(db);
             if (pet == 0) return;
             confirmacao = Utils.ColetarValorInt("Confirmar adoção? (1 - Sim) (2 - Não): ");
@@ -130,7 +130,18 @@ namespace ProjectOngAnimais
         static void ConfirmarAdocao(string cpf, int IDpet, Db_ONG db)
         {
             string sql = $"insert into dbo.regAdocao (cpf, nChipPet, dataAdocao) values('{cpf}','{IDpet}', '{DateTime.Now}')";
-            db.InsertRegAdocao(sql);
+            if (db.InsertRegAdocao(sql) != 0)
+            {
+                sql = $"update dbo.pet set disponivel = 'I' where nChipPet = {IDpet}";
+                db.UpdateTable(sql);
+                Console.WriteLine("Adoção efetuada com sucesso!!!");
+                Utils.Pause();
+            }
+            else
+            {
+                Console.WriteLine("Houve um problema na solicitação");
+                Utils.Pause();
+            }
         }
 
         static int BuscarPet(Db_ONG db)
@@ -145,19 +156,21 @@ namespace ProjectOngAnimais
                 db.SelectTablePet(sqlPet);
                 id = Utils.ColetarValorInt("Informe o numero do chip de identificação do Pet desejado informado na listagem acima: ");
                 sqlPet = $"select nChipPet, familiaPet, racaPet, sexoPet, nomePet from dbo.pet where nChipPet = {id} and disponivel = 'A'";
-                db.SelectTablePet(sqlPet);
-                confirmacao = Utils.ColetarValorInt("Confirmar seleção de Pet (0 - Cancelar) (1 - Sim) (2 - Nao): ");
-                if (confirmacao == 0) return 0;
-                else if (confirmacao == 1) break;
-                else if (confirmacao != 2)
+                if (db.SelectTablePet(sqlPet))
                 {
-                    Console.WriteLine("Opção Inválida...");
-                    Utils.Pause();
+                    do
+                    {
+                        confirmacao = Utils.ColetarValorInt("Confirmar seleção de Pet (0 - Cancelar) (1 - Sim): ");
+                        if (confirmacao == 0) return 0;
+                        else if (confirmacao == 1) return id;
+                        else
+                        {
+                            Console.WriteLine("Opção Inválida...");
+                            Utils.Pause();
+                        }
+                    } while (true);
                 }
-                else break;
             } while (true);
-            Utils.Pause();
-            return id;
         }
         static String BuscarPessoa(Db_ONG db)
         {
@@ -167,19 +180,18 @@ namespace ProjectOngAnimais
                 do
                 {
                     confirmacao = Utils.ColetarValorInt("Deseja realmente efetuar uma nova adoção (1 - Sim) (2 - Não): ");
-                    if (confirmacao != 1 && confirmacao != 0) Console.WriteLine("Informe uma opção válida...");
-                    else if (confirmacao == 2) return "SAIR";
-                    else break;
+                    if (confirmacao == 1) break;
+                    else if (confirmacao == 2) return "0";
+                    else Console.WriteLine("Selecione opção válida...");
                 } while (true);
-                if (confirmacao == 2) return "SAIR";
 
                 string cpf, sql;
+
                 do cpf = Utils.ColetarString("Informe o CPF da pessoa que deseja adotar: ");
                 while (!Utils.ValidarCpf(cpf));
                 sql = $"Select cpf, nome, sexo, telefone, endereco, dataNascimento from pessoa where cpf ='{cpf}' and status = 'A';";
-                db.SelectTablePessoa(sql);
+                if (!db.SelectTablePessoa(sql)) return "0";
                 confirmacao = Utils.ColetarValorInt("Confirmar candidato (1 - Sim) (2 - Não): ");
-                Utils.Pause();
                 if (confirmacao == 1) return cpf;
             } while (true);
         }
