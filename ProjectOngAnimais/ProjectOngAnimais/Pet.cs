@@ -46,6 +46,8 @@ namespace ProjectOngAnimais
         {
             do
             {
+                Console.Clear();
+                Console.WriteLine("### EDITAR PET ###");
                 int id = Utils.ColetarValorInt("Informe o número do Chip do pet que será alterado: ");
                 int op = Utils.ColetarValorInt("Informe o que deseja alterar (1 - Tipo do Pet) (2 - Raça) (3 - Sexo) (4 - Nome): ");
 
@@ -57,14 +59,18 @@ namespace ProjectOngAnimais
                         string tipoPet = Utils.ColetarString("informe o tipo do pet: ");
                         Db_ONG db = new Db_ONG();
                         string sql = $"update dbo.pet set familiaPet = '{tipoPet}' where nChipPet = {id}";
-                        db.UpdateTable(sql);
+                        if (db.UpdateTable(sql) != 0) Console.WriteLine("Cadastro efetuado com sucesso!!!");
+                        else Console.WriteLine("Houve um erro na solicitação...");
+                        Utils.Pause();
                         return;
 
                     case 2:
                         string raca = Utils.ColetarString("Informe a raça: ");
                         db = new Db_ONG();
                         sql = $"update dbo.pet set racaPet = '{raca}' where nChipPet = {id};";
-                        db.UpdateTable(sql);
+                        if (db.UpdateTable(sql) != 0) Console.WriteLine("Cadastro efetuado com sucesso!!!");
+                        else Console.WriteLine("Houve um erro na solicitação...");
+                        Utils.Pause();
                         return;
 
                     case 3:
@@ -80,14 +86,26 @@ namespace ProjectOngAnimais
                             else break;
                         } while (true);
                         db = new Db_ONG();
-
                         sql = $"update dbo.pet set sexoPet = '{sexo}' where nChipPet = {id};";
-                        db.UpdateTable(sql);
+                        if (db.UpdateTable(sql) != 0) Console.WriteLine("Cadastro efetuado com sucesso!!!");
+                        else Console.WriteLine("Houve um erro na solicitação...");
+                        Utils.Pause();
+                        return;
+
+                    case 4:
+                        db = new Db_ONG();
+                        string nome = Utils.ColetarString("informe o nome do pet: ");
+                        sql = $"update dbo.pet set nomePet = '{nome}' where nChipPet = {id};";
+                        if (db.UpdateTable(sql) != 0) Console.WriteLine("Cadastro efetuado com sucesso!!!");
+                        else Console.WriteLine("Houve um erro na solicitação...");
+                        Utils.Pause();
                         return;
 
                     default:
+                        Console.WriteLine("Opção inválida");
                         break;
                 }
+                Utils.Pause();
             } while (true);
         }
 

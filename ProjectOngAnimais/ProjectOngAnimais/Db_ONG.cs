@@ -254,6 +254,7 @@ namespace ProjectOngAnimais
                             Console.WriteLine($"CPF do tutor: {r.GetString(0)}");
                             Console.WriteLine($"Nome do tutor: {r.GetString(1)}");
                             Console.WriteLine($"Número do chip do pet: {r.GetInt32(2)}");
+                            Console.WriteLine($"Nome do pet: {r.GetString(6)}");
                             Console.WriteLine($"Tipo do pet: {r.GetString(3)}");
                             Console.WriteLine($"Raça do pet: {r.GetString(4)}");
                             Console.WriteLine($"Data de adoção: {r.GetDateTime(5).ToShortDateString()}");
