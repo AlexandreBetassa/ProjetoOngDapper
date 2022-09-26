@@ -1,0 +1,22 @@
+Nome: Benício Fernando Kaique Ferreira
+CPF: 38287458900
+Sexo: M
+Tel: 86985622890
+Endereço: Rua Rio Negro, 838, Conquista, Rio Branco-AC
+Data de nascimento: 05/08/1977
+
+Nome: Julio Diego Geraldo da Paz
+CPF: 71682677877
+Sexo: M
+Tel: 8639008168
+Endereço: Rua Rio Negro, 838, Conquista, Rio Branco-AC
+Data de nascimento: 11/05/1972
+
+Nome: Anderson Carlos Eduardo Mário da Costa
+CPF: 71895130603
+Sexo: M
+Tel: 68988152226
+Endereço: Rua Rio Negro, 838, Conquista, Rio Branco-AC
+Data de nascimento: 07/07/1955
+
+Dados gerados no site: https://www.4devs.com.br/gerador_de_pessoas
