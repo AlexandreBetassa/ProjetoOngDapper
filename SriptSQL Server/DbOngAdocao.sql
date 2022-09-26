@@ -8,7 +8,7 @@ cpf varchar(11) not null,
 nome varchar(50) not null,
 sexo char(1) not null,
 telefone varchar(11) not null,
-endereco varchar(50),
+endereco varchar(100),
 ativa char(1) not null,
 dataNascimento date not null
 
