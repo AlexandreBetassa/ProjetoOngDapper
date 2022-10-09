@@ -13,7 +13,7 @@ namespace Repository
         public bool Insert(Pessoa pessoa)
         {
             bool result = false;
-            using (SqlConnection db = DbOng.OpenConnection())
+            using (SqlConnection db = new DbOng().OpenConnection())
             {
                 db.Execute(Pessoa.INSERT, pessoa);
                 result = true;
@@ -23,7 +23,7 @@ namespace Repository
 
         public List<Pessoa> Select()
         {
-            using SqlConnection db = DbOng.OpenConnection();
+            using SqlConnection db = new DbOng().OpenConnection();
             var lstPessoa = db.Query<Pessoa>(Pessoa.SELECT);
             return (List<Pessoa>)lstPessoa;
         }
@@ -31,7 +31,7 @@ namespace Repository
         public bool Update(Pessoa pessoa)
         {
             bool result = false;
-            using (SqlConnection db = DbOng.OpenConnection())
+            using (SqlConnection db = new DbOng().OpenConnection())
             {
                 db.Execute(Pessoa.UPDATE, pessoa);
                 result = true;
@@ -42,7 +42,7 @@ namespace Repository
         public bool Delete(Pessoa pessoa)
         {
             bool result = false;
-            using (SqlConnection db = DbOng.OpenConnection())
+            using (SqlConnection db = new DbOng().OpenConnection())
             {
                 db.Execute(Pessoa.DELETE, pessoa);
                 result = true;

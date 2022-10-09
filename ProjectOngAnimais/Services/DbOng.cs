@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class DbOng
+    public class DbOng : IDbOng
     {
-        private static readonly string connection = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Services\\DataBase\\DataBase.mdf;Integrated Security=True;Connect Timeout=30";
+        private readonly string connection = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\..\\..\\..\\..\\ProjotoOngDapper\\ProjectOngAnimais\\Services\\DataBase\\DataBase.mdf;Integrated Security=True;Connect Timeout=30";
 
-        public static SqlConnection OpenConnection()
+        public SqlConnection OpenConnection()
         {
             SqlConnection conn = new(connection);
             conn.Open();
