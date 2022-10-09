@@ -11,10 +11,10 @@ namespace Services
     public class DbOng
     {
         static readonly string connection = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Services\\DataBase\\DataBase.mdf;Integrated Security=True;Connect Timeout=30";
-        public static SqlConnection conn { get; set; } = new() { ConnectionString = connection };
 
         public static SqlConnection OpenConnection()
         {
+            SqlConnection conn = new(connection);
             conn.Open();
             return conn;
         }

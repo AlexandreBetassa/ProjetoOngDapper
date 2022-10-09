@@ -27,5 +27,16 @@ namespace Repository
             var lstPessoa = db.Query<Pessoa>(Pessoa.SELECT);
             return (List<Pessoa>)lstPessoa;
         }
+
+        public bool Update(Pessoa pessoa)
+        {
+            bool result = false;
+            using (SqlConnection db = DbOng.OpenConnection())
+            {
+                db.Execute(Pessoa.UPDATE, pessoa);
+                result = true;
+            }
+            return result;
+        }
     }
 }
