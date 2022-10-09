@@ -78,6 +78,12 @@ namespace ProjectOngAnimais
                         new PessoaRepository().Select().Where(item => item.Status != "ATIVA").ToList().ForEach(Item => Console.WriteLine(Item));
                         Utils.Pause();
                         break;
+                    case 5:
+                        Console.Clear();
+                        Console.WriteLine("### DELETAR  CPF ###");
+                        DeletarPessoa();
+                        Utils.Pause();
+                        break;
                     default:
                         Console.WriteLine("OPÇÃO NVÁLIDA");
                         break;
@@ -188,6 +194,8 @@ namespace ProjectOngAnimais
 
         public static void DeletarPessoa()
         {
+            Console.Clear();
+            Console.WriteLine("### DELETAR PESSOA ###");
             string cpf = Utils.ColetarString("Informe o CPF da pessoa a ser Deletada: ");
             var pessoa = new PessoaRepository().Select().Where(item => item.Cpf == cpf).First();
             Console.WriteLine("\n" + pessoa);
