@@ -412,7 +412,8 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "Dapper": "2.0.123",
-          "Dapper.Contrib": "2.0.78"
+          "Dapper.Contrib": "2.0.78",
+          "System.Data.SqlClient": "4.8.3"
         },
         "compile": {
           "bin/placeholder/Services.dll": {}
