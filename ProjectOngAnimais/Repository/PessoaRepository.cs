@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using Dapper;
+using Dapper.Contrib.Extensions;
 using Models;
+using Services;
 
 namespace Repository
 {
@@ -8,12 +12,20 @@ namespace Repository
     {
         public bool Insert(Pessoa pessoa)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            using (SqlConnection db = DbOng.OpenConnection())
+            {
+                db.Execute(Pessoa.INSERT, pessoa);
+                result = true;
+            }
+            return result;
         }
 
         public List<Pessoa> Select()
         {
-            throw new NotImplementedException();
+            using SqlConnection db = DbOng.OpenConnection();
+            var lstPessoa = db.Query<Pessoa>(Pessoa.SELECT);
+            return (List<Pessoa>)lstPessoa;
         }
     }
 }

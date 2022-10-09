@@ -407,6 +407,22 @@
           "bin/placeholder/Models.dll": {}
         }
       },
+      "Repository/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Controllers": "1.0.0",
+          "Models": "1.0.0",
+          "Services": "1.0.0",
+          "System.Data.SqlClient": "4.8.3"
+        },
+        "compile": {
+          "bin/placeholder/Repository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Repository.dll": {}
+        }
+      },
       "Services/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
@@ -1061,6 +1077,11 @@
       "path": "../Models/Models.csproj",
       "msbuildProject": "../Models/Models.csproj"
     },
+    "Repository/1.0.0": {
+      "type": "project",
+      "path": "../Repository/Repository.csproj",
+      "msbuildProject": "../Repository/Repository.csproj"
+    },
     "Services/1.0.0": {
       "type": "project",
       "path": "../Services/Services.csproj",
@@ -1076,6 +1097,7 @@
       "Microsoft.Extensions.Configuration.FileExtensions >= 6.0.0",
       "Microsoft.Extensions.Configuration.Json >= 6.0.0",
       "Models >= 1.0.0",
+      "Repository >= 1.0.0",
       "Services >= 1.0.0",
       "System.Data.SqlClient >= 4.8.3"
     ]
@@ -1117,6 +1139,9 @@
             },
             "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Models\\Models.csproj": {
               "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Models\\Models.csproj"
+            },
+            "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Repository\\Repository.csproj": {
+              "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Repository\\Repository.csproj"
             },
             "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Services\\Services.csproj": {
               "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Services\\Services.csproj"

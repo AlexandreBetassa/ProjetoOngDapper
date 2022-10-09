@@ -14,15 +14,13 @@ namespace Models
         public String Nome { get; set; }
         public String Sexo { get; set; }
         public String Telefone { get; set; }
-        public String End { get; set; }
+        public String Endereco { get; set; }
         public String Status { get; set; }
-        public DateTime DataNascimento { get; set; }
+        public DateTime DataNasc { get; set; }
 
         public override string ToString()
         {
-            return $"Nome: {Nome}\nCPF: {Cpf.Substring(0, 3)}.{Cpf.Substring(3, 3)}.{Cpf.Substring(6, 3)}-{Cpf.Substring(9, 2)}\n" +
-                $"Sexo: {Sexo}\nTelefone: ({Telefone.Substring(0, 2)}){Telefone.Substring(2, 5)}-{Telefone.Substring(7, 4)}\n" +
-                $"Endereço: {End}\nData de nascimento: {DataNascimento.ToShortDateString()}".ToString();
+            return $"Nome: {Nome}\nCPF: {Cpf}\nSexo: {Sexo}\nTelefone: ({Telefone}\nEndereço: {Endereco}\nData de nascimento: {DataNasc.ToShortDateString()}".ToString();
         }
     }
 }

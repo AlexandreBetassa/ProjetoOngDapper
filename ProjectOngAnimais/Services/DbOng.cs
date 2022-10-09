@@ -18,7 +18,6 @@ namespace Services
             conn.Open();
             return conn;
         }
-        public static void CloseConnection(SqlConnection conn) => conn.Close();
 
     }
 }

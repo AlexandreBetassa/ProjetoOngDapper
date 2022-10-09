@@ -3,6 +3,8 @@ using System.Data;
 using System.Runtime.Serialization;
 using System.Xml;
 using Models;
+using Repository;
+
 
 namespace ProjectOngAnimais
 {
@@ -68,14 +70,13 @@ namespace ProjectOngAnimais
                     //    Console.WriteLine("### DELETAR PESSOA ###");
                     //    Pessoa.DeletarPessoa();
                     //    break;
-                    //case 4:
-                    //    Console.Clear();
-                    //    Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO ATIVO ###");
-                    //    Db_ONG db = new Db_ONG();
-                    //    string sql = "Select cpf, nome, sexo, telefone, endereco, dataNascimento from pessoa where status = 'A'";
-                    //    db.SelectTablePessoa(sql);
-                    //    Utils.Pause();
                     //    break;
+                    case 4:
+                        Console.Clear();
+                        Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO ATIVO ###");
+                        new PessoaRepository().Select().ForEach(Item => Console.WriteLine(Item)) ;
+                        Utils.Pause();
+                        break;
                     //case 5:
                     //    Console.Clear();
                     //    Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO INATIVO ###");
@@ -293,15 +294,16 @@ namespace ProjectOngAnimais
             while (!Utils.ValidarCpf(pessoa.Cpf));
             do
             {
-                pessoa.DataNascimento = Utils.ColetarData("Informe sua data de nascimento: ");
-                if (pessoa.DataNascimento > DateTime.Now) Console.WriteLine("Informe uma data válida");
+                pessoa.DataNasc = Utils.ColetarData("Informe sua data de nascimento: ");
+                if (pessoa.DataNasc > DateTime.Now) Console.WriteLine("Informe uma data válida");
                 else break;
             } while (true);
 
             pessoa.Sexo = Utils.ColetarString("Informe o sexo informado no RG (M  - Masculino) ou (F - Feminino): ");
-            pessoa.End = Utils.ColetarString("Informe seu endereço completo: ");
+            pessoa.Endereco = Utils.ColetarString("Informe seu endereço completo: ");
             pessoa.Telefone = Utils.ColetarString("Informe o número do teledone com DDD: ").Replace("(", "").Replace("-", "").Replace(")", "");
             pessoa.Status = "ATIVA";
+            new PessoaRepository().Insert(pessoa);
         }
     }
 }
