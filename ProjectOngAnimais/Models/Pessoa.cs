@@ -6,8 +6,8 @@ namespace Models
     {
         public readonly static string INSERT = "INSERT INTO dbo.pessoa (cpf, nome, sexo, telefone, endereco, status, dataNasc) VALUES (@cpf, @nome, @sexo, @telefone, @endereco, @status, @dataNasc)";
         public readonly static string SELECT = "SELECT cpf, nome, sexo, telefone, endereco, status, dataNasc FROM dbo.pessoa";
-        public readonly static string UPDATE = "UPDATE dbo.pessoa SET nome, sexo, telefone, endereco, status, dataNasc) VALUES (@cpf, @nome, @sexo, @telefone, @endereco, @status, @dataNasc)";
-        public readonly static string DELETE = "INSERT INTO dbo.pessoa (cpf, nome, sexo, telefone, endereco, status, dataNasc) VALUES (@cpf, @nome, @sexo, @telefone, @endereco, @status, @dataNasc)";
+        public readonly static string UPDATE = "UPDATE dbo.pessoa SET nome = @nome, telefone = @telefone, endereco = @endereco, status = @status WHERE cpf = @cpf";
+        public readonly static string DELETE = "DELETE FROM dbo.pessoa WHERE cpf = @cpf";
 
 
         public String Cpf { get; set; }
@@ -20,7 +20,7 @@ namespace Models
 
         public override string ToString()
         {
-            return $"Nome: {Nome}\nCPF: {Cpf}\nSexo: {Sexo}\nTelefone: ({Telefone}\nEndereço: {Endereco}\nData de nascimento: {DataNasc.ToShortDateString()}".ToString();
+            return $"Nome: {Nome}\nCPF: {Cpf}\nSexo: {Sexo}\nTelefone: ({Telefone}\nEndereço: {Endereco}\nData de nascimento: {DataNasc.ToShortDateString()}\nStatus Cadastro: {Status}".ToString();
         }
     }
 }

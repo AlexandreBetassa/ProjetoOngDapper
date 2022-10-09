@@ -12,7 +12,6 @@ namespace Repository
         public bool Insert(Pessoa pessoa);
         public List<Pessoa> Select();
         public bool Update(Pessoa pessoa);
-
-
+        public bool Delete(Pessoa pessoa);
     }
 }

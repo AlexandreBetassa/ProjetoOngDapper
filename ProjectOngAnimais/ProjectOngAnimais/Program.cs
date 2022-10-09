@@ -67,40 +67,25 @@ namespace ProjectOngAnimais
                         Console.WriteLine("### ATUALIZAR DADOS ###");
                         EditarCadastroPessoa();
                         break;
-                    //case 3:
-                    //    Console.Clear();
-                    //    Console.WriteLine("### DELETAR PESSOA ###");
-                    //    Pessoa.DeletarPessoa();
-                    //    break;
-                    //    break;
+                    case 3:
+                        Console.Clear();
+                        Console.WriteLine("### DELETAR PESSOA ###");
+                        DeletarPessoa();
+                        break;
                     case 4:
                         Console.Clear();
                         Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO ATIVO ###");
-                        new PessoaRepository().Select().ForEach(Item => Console.WriteLine(Item));
+                        new PessoaRepository().Select().Where(item => item.Status == "ATIVA").ToList().ForEach(Item => Console.WriteLine(Item));
                         Utils.Pause();
                         break;
-                    //case 5:
-                    //    Console.Clear();
-                    //    Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO INATIVO ###");
-                    //    db = new Db_ONG();
-                    //    sql = "Select cpf, nome, sexo, telefone, endereco, dataNascimento from pessoa where status = 'I'";
-                    //    db.SelectTablePessoa(sql);
-                    //    Utils.Pause();
-                    //    break;
-                    //case 6:
-                    //    Console.Clear();
-                    //    string cpf;
-                    //    do cpf = Utils.ColetarString("Informe o CPF a ser reativado: ");
-                    //    while (!Utils.ValidarCpf(cpf));
-                    //    BuscarCadastro(cpf);
-                    //    Utils.Pause();
-                    //    break;
-                    //case 7:
-                    //    Console.Clear();
-                    //    ReativarCadastro();
-                    //    Utils.Pause();
-                    //    break;
+                    case 5:
+                        Console.Clear();
+                        Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO INATIVO ###");
+                        new PessoaRepository().Select().Where(item => item.Status != "ATIVA").ToList().ForEach(Item => Console.WriteLine(Item));
+                        Utils.Pause();
+                        break;
                     default:
+                        Console.WriteLine("OPÇÃO NVÁLIDA");
                         break;
                 }
             } while (true);
@@ -311,7 +296,7 @@ namespace ProjectOngAnimais
             var pessoa = new PessoaRepository().Select().Where(item => item.Cpf == cpf).First();
             Console.WriteLine("\n" + pessoa);
 
-            int op = Utils.ColetarValorInt("INFORME A ALTERAÇÃO QUE DESEJA EFETUAR:\n(1 - Nome)\n(2 - Telefone)\n(3 - Endereco)\nInforme:  ");
+            int op = Utils.ColetarValorInt("INFORME A ALTERAÇÃO QUE DESEJA EFETUAR:\n(1 - Nome)\n(2 - Telefone)\n(3 - Endereco)\n(4 - Inativar cadastro)\nInforme:  ");
             switch (op)
             {
                 case 0:
@@ -326,7 +311,10 @@ namespace ProjectOngAnimais
                     break;
                 case 3:
                     pessoa.Endereco = Utils.ColetarString("Informe o novo endereço: ");
-                    return;
+                    break;
+                case 4:
+                    pessoa.Status = Utils.ColetarString("Informe o novo status: ");
+                    break;
                 default:
                     Console.WriteLine("Opção inválida!!!");
                     break;
@@ -334,6 +322,14 @@ namespace ProjectOngAnimais
             new PessoaRepository().Update(pessoa);
         }
 
+        public static void DeletarPessoa()
+        {
+            string cpf = Utils.ColetarString("Informe o CPF da pessoa a ser Deletada: ");
+            var pessoa = new PessoaRepository().Select().Where(item => item.Cpf == cpf).First();
+            Console.WriteLine("\n" + pessoa);
+
+            new PessoaRepository().Delete(pessoa);
+        }
 
 
         public static void CadastrarAnimal()

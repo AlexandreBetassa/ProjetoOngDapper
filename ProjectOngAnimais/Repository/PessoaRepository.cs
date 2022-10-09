@@ -38,5 +38,16 @@ namespace Repository
             }
             return result;
         }
+
+        public bool Delete(Pessoa pessoa)
+        {
+            bool result = false;
+            using (SqlConnection db = DbOng.OpenConnection())
+            {
+                db.Execute(Pessoa.DELETE, pessoa);
+                result = true;
+            }
+            return result;
+        }
     }
 }
