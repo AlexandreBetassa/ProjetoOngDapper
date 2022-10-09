@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data;
+using System.Linq;
 using System.Reflection.Metadata;
 using System.Runtime.Serialization;
 using System.Xml;
@@ -28,9 +30,9 @@ namespace ProjectOngAnimais
                     case 1:
                         MenuPessoas();
                         break;
-                    //case 2:
-                    //    MenuPet();
-                    //    break;
+                    case 2:
+                        MenuPet();
+                        break;
                     //case 3:
                     //    NovaAdocao();
                     //    break;
@@ -58,86 +60,67 @@ namespace ProjectOngAnimais
                         return;
                     case 1:
                         Console.WriteLine("### CADASTRAR NOVA PESSOA ###");
-                        Pessoa pessoa = new Pessoa();
                         CadastrarPessoa();
                         break;
-                    //case 2:
-                    //    Console.Clear();
-                    //    Console.WriteLine("### ATUALIZAR DADOS ###");
-                    //    Pessoa.EditarCadastroPessoa();
-                    //    break;
-                    //case 3:
-                    //    Console.Clear();
-                    //    Console.WriteLine("### DELETAR PESSOA ###");
-                    //    Pessoa.DeletarPessoa();
-                    //    break;
-                    //    break;
+                    case 2:
+                        Console.Clear();
+                        Console.WriteLine("### ATUALIZAR DADOS ###");
+                        EditarCadastroPessoa();
+                        break;
+                    case 3:
+                        Console.Clear();
+                        Console.WriteLine("### DELETAR PESSOA ###");
+                        DeletarPessoa();
+                        break;
                     case 4:
                         Console.Clear();
                         Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO ATIVO ###");
-                        new PessoaRepository().Select().ForEach(Item => Console.WriteLine(Item));
+                        new PessoaRepository().Select().Where(item => item.Status == "ATIVA").ToList().ForEach(Item => Console.WriteLine(Item));
                         Utils.Pause();
                         break;
-                    //case 5:
-                    //    Console.Clear();
-                    //    Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO INATIVO ###");
-                    //    db = new Db_ONG();
-                    //    sql = "Select cpf, nome, sexo, telefone, endereco, dataNascimento from pessoa where status = 'I'";
-                    //    db.SelectTablePessoa(sql);
-                    //    Utils.Pause();
-                    //    break;
-                    //case 6:
-                    //    Console.Clear();
-                    //    string cpf;
-                    //    do cpf = Utils.ColetarString("Informe o CPF a ser reativado: ");
-                    //    while (!Utils.ValidarCpf(cpf));
-                    //    BuscarCadastro(cpf);
-                    //    Utils.Pause();
-                    //    break;
-                    //case 7:
-                    //    Console.Clear();
-                    //    ReativarCadastro();
-                    //    Utils.Pause();
-                    //    break;
+                    case 5:
+                        Console.Clear();
+                        Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO INATIVO ###");
+                        new PessoaRepository().Select().Where(item => item.Status != "ATIVA").ToList().ForEach(Item => Console.WriteLine(Item));
+                        Utils.Pause();
+                        break;
                     default:
+                        Console.WriteLine("OPÇÃO NVÁLIDA");
                         break;
                 }
             } while (true);
         }
 
-        //static void MenuPet()
-        //{
-        //    do
-        //    {
-        //        Console.Clear();
-        //        Console.WriteLine("### OPÇÕES PET ###");
-        //        int op = Utils.ColetarValorInt("Informe a opção desejada\n(0 - Retornar)\n(1 - Cadastrar Novo Pet para adoção)\n(2 - Editar Dados do Pet)\n" +
-        //            "(3 - Listar Pets disponiveis para adoção)\nInforme opção: ");
-        //        switch (op)
-        //        {
-        //            case 0:
-        //                return;
-        //            case 1:
-        //                Console.WriteLine("### CADASTRAR NOVO PET PARA ADOÇÃO ###");
-        //                Pet pet = new Pet();
-        //                pet.CadastrarPet();
-        //                break;
-        //            case 2:
-        //                Console.WriteLine("### ATUALIZAR DADOS ###");
-        //                Pet.EditarPet();
-        //                break;
-        //            case 3:
-        //                Console.WriteLine("### LISTAR PET's DISPONIVEIS PARA ADOÇÃO ###");
-        //                Db_ONG db = new Db_ONG();
-        //                string sql = "select nChipPet, familiaPet, racaPet, sexoPet, nomePet from dbo.pet where disponivel = 'A'";
-        //                db.SelectTablePet(sql);
-        //                Utils.Pause();
-        //                break;
-        //            default:
-        //                break;
-        //        }
-        //    } while (true);
-        //}
+        static void MenuPet()
+        {
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("### OPÇÕES PET ###");
+                int op = Utils.ColetarValorInt("Informe a opção desejada\n(0 - Retornar)\n(1 - Cadastrar Novo Pet para adoção)\n(2 - Editar Dados do Pet)\n" +
+                    "(3 - Listar Pets disponiveis para adoção)\nInforme opção: ");
+                switch (op)
+                {
+                    case 0:
+                        return;
+                    case 1:
+                        Console.WriteLine("### CADASTRAR NOVO PET PARA ADOÇÃO ###");
+                        CadastrarAnimal();
+                        break;
+                    //case 2:
+                    //    Console.WriteLine("### ATUALIZAR DADOS ###");
+                    //    Pet.EditarPet();
+                    //    break;
+                    case 3:
+                        Console.WriteLine("### LISTAR PET's DISPONIVEIS PARA ADOÇÃO ###");
+                        new AnimalRepository().Select().ForEach(item => Console.WriteLine(item));
+                        Utils.Pause();
+                        break;
+                    default:
+                        break;
+                }
+            } while (true);
+        }
 
         //static void NovaAdocao()
         //{
@@ -307,6 +290,47 @@ namespace ProjectOngAnimais
             new PessoaRepository().Insert(pessoa);
         }
 
+        public static void EditarCadastroPessoa()
+        {
+            string cpf = Utils.ColetarString("Informe o CPF da pessoa a ser atualizada: ");
+            var pessoa = new PessoaRepository().Select().Where(item => item.Cpf == cpf).First();
+            Console.WriteLine("\n" + pessoa);
+
+            int op = Utils.ColetarValorInt("INFORME A ALTERAÇÃO QUE DESEJA EFETUAR:\n(1 - Nome)\n(2 - Telefone)\n(3 - Endereco)\n(4 - Inativar cadastro)\nInforme:  ");
+            switch (op)
+            {
+                case 0:
+                    Console.WriteLine("Operação cancelada!!!");
+                    Utils.Pause();
+                    return;
+                case 1:
+                    pessoa.Nome = Utils.ColetarString("Informe o novo nome: ");
+                    break;
+                case 2:
+                    pessoa.Telefone = Utils.ColetarString("Informe o novo telefone: ").Replace("(", "").Replace("-", "").Replace(")", "");
+                    break;
+                case 3:
+                    pessoa.Endereco = Utils.ColetarString("Informe o novo endereço: ");
+                    break;
+                case 4:
+                    pessoa.Status = Utils.ColetarString("Informe o novo status: ");
+                    break;
+                default:
+                    Console.WriteLine("Opção inválida!!!");
+                    break;
+            }
+            new PessoaRepository().Update(pessoa);
+        }
+
+        public static void DeletarPessoa()
+        {
+            string cpf = Utils.ColetarString("Informe o CPF da pessoa a ser Deletada: ");
+            var pessoa = new PessoaRepository().Select().Where(item => item.Cpf == cpf).First();
+            Console.WriteLine("\n" + pessoa);
+
+            new PessoaRepository().Delete(pessoa);
+        }
+
 
         public static void CadastrarAnimal()
         {
@@ -318,7 +342,9 @@ namespace ProjectOngAnimais
                 Nome = Utils.ColetarString("Informe o nome do PET (Opcional): "),
                 Disponivel = "Disponivel",
             };
-
+            new AnimalRepository().Insert(animal);
         }
+
+
     }
 }
