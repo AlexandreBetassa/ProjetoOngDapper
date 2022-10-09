@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using System.Xml;
 using Models;
 using Repository;
+using Controllers;
 
 namespace ProjectOngAnimais
 {
@@ -69,13 +70,19 @@ namespace ProjectOngAnimais
                     case 3:
                         Console.Clear();
                         Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO ATIVO ###");
-                        new PessoaRepository().Select().Where(item => item.Status == "ATIVA").ToList().ForEach(Item => Console.WriteLine(Item));
+                        new PessoaController().Select().Where(item => item.Status == "ATIVA").ToList().ForEach(Item => Console.WriteLine(Item));
                         Utils.Pause();
                         break;
                     case 4:
                         Console.Clear();
                         Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO INATIVO ###");
-                        new PessoaRepository().Select().Where(item => item.Status != "ATIVA").ToList().ForEach(Item => Console.WriteLine(Item));
+                        new PessoaController().Select().Where(item => item.Status != "ATIVA").ToList().ForEach(Item => Console.WriteLine(Item));
+                        Utils.Pause();
+                        break;
+                    case 5:
+                        Console.Clear();
+                        Console.WriteLine("### DELETAR  CPF ###");
+                        DeletarPessoa();
                         Utils.Pause();
                         break;
                     default:
@@ -108,7 +115,7 @@ namespace ProjectOngAnimais
                     case 3:
                         Console.Clear();
                         Console.WriteLine("### PET's DISPONIVEIS PARA ADOÇÃO ###");
-                        new AnimalRepository().Select().ForEach(item => Console.WriteLine(item));
+                        new AnimalController().Select().ForEach(item => Console.WriteLine(item));
                         Utils.Pause();
                         break;
                     default:
@@ -121,9 +128,9 @@ namespace ProjectOngAnimais
         {
             Console.Clear();
             Console.WriteLine("### NOVA ADOÇÃO ###");
-            new AnimalRepository().Select().Where(Item => Item.Disponivel == "DISPONIVEL").ToList().ForEach(item => Console.WriteLine(item));
+            new AnimalController().Select().Where(Item => Item.Disponivel == "DISPONIVEL").ToList().ForEach(item => Console.WriteLine(item));
             int id = Utils.ColetarValorInt("Informe o número do chip do pet a ser adotado: ");
-            Animal animal = new AnimalRepository().Select().Where(item => item.NChip == id && item.Disponivel == "DISPONIVEL").First();
+            Animal animal = new AnimalController().Select().Where(item => item.NChip == id && item.Disponivel == "DISPONIVEL").First();
             CadastrarPessoa(id);
         }
 
@@ -151,13 +158,13 @@ namespace ProjectOngAnimais
             pessoa.Telefone = Utils.ColetarString("Informe o número do teledone com DDD: ").Replace("(", "").Replace("-", "").Replace(")", "");
             pessoa.Status = "ATIVA";
             pessoa.NChip = id;
-            new PessoaRepository().Insert(pessoa);
+            new PessoaController().Insert(pessoa);
         }
 
         public static void EditarCadastroPessoa()
         {
             string cpf = Utils.ColetarString("Informe o CPF da pessoa a ser atualizada: ");
-            var pessoa = new PessoaRepository().Select().Where(item => item.Cpf == cpf).First();
+            var pessoa = new PessoaController().Select().Where(item => item.Cpf == cpf).First();
             Console.WriteLine("\n" + pessoa);
 
             int op = Utils.ColetarValorInt("INFORME A ALTERAÇÃO QUE DESEJA EFETUAR:\n(1 - Nome)\n(2 - Telefone)\n(3 - Endereco)\n(4 - Inativar cadastro)\nInforme:  ");
@@ -183,16 +190,18 @@ namespace ProjectOngAnimais
                     Console.WriteLine("Opção inválida!!!");
                     break;
             }
-            new PessoaRepository().Update(pessoa);
+            new PessoaController().Update(pessoa);
         }
 
         public static void DeletarPessoa()
         {
+            Console.Clear();
+            Console.WriteLine("### DELETAR PESSOA ###");
             string cpf = Utils.ColetarString("Informe o CPF da pessoa a ser Deletada: ");
-            var pessoa = new PessoaRepository().Select().Where(item => item.Cpf == cpf).First();
+            var pessoa = new PessoaController().Select().Where(item => item.Cpf == cpf).First();
             Console.WriteLine("\n" + pessoa);
 
-            new PessoaRepository().Delete(pessoa);
+            new PessoaController().Delete(pessoa);
         }
 
         #endregion Pessoa
@@ -208,7 +217,7 @@ namespace ProjectOngAnimais
                 Nome = Utils.ColetarString("Informe o nome do PET (Opcional): "),
                 Disponivel = "Disponivel",
             };
-            new AnimalRepository().Insert(animal);
+            new AnimalController().Insert(animal);
         }
 
         public static void EditarPet()
@@ -216,7 +225,7 @@ namespace ProjectOngAnimais
             Console.Clear();
             Console.WriteLine("### EDITAR PET ###");
             int id = Utils.ColetarValorInt("Informe o número do Chip do pet que será alterado: ");
-            var animal = new AnimalRepository().Select().Where(item => item.NChip == id).First();
+            var animal = new AnimalController().Select().Where(item => item.NChip == id).First();
             Console.WriteLine("\n" + animal);
             int op = Utils.ColetarValorInt("INFORME O QUE DESEJA ALTERAR\n(1 - Tipo do Pet)\n(2 - Raça)\n(3 - Sexo)" +
                 "\n(4 - Nome)\n(5 - Alterar status)\nInforme: ");
@@ -244,7 +253,7 @@ namespace ProjectOngAnimais
                     Console.WriteLine("Opção inválida");
                     break;
             }
-            new AnimalRepository().Update(animal);
+            new AnimalController().Update(animal);
         }
 
         public static void DeletarPet()
@@ -252,9 +261,9 @@ namespace ProjectOngAnimais
             Console.Clear();
             Console.WriteLine("### EXCLUIR PET ###");
             int id = Utils.ColetarValorInt("Informe o número do Chip do pet que será excluido: ");
-            var animal = new AnimalRepository().Select().Where(item => item.NChip == id).First();
+            var animal = new AnimalController().Select().Where(item => item.NChip == id).First();
             Console.WriteLine("\n" + animal);
-            new AnimalRepository().Delete(animal);
+            new AnimalController().Delete(animal);
         }
         #endregion Animal
 

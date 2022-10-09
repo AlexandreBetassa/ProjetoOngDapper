@@ -7,7 +7,7 @@ using Models;
 
 namespace Repository
 {
-    public interface IAnimal
+    public interface IAnimalRepository
     {
         public bool Insert(Animal pessoa);
         public List<Animal> Select();

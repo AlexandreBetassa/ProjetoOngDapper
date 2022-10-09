@@ -11,7 +11,7 @@ using Services;
 
 namespace Repository
 {
-    public class AnimalRepository : IAnimal
+    public class AnimalRepository : IAnimalRepository
     {
         public bool Delete(Animal animal)
         {
