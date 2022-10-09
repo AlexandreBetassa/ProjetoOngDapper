@@ -960,11 +960,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Alexandre\\Desktop\\Estágio\\Projetos\\BD_OngAdocaoAnimais\\ProjectOngAnimais\\ProjectOngAnimais\\ProjectOngAnimais.csproj",
+      "projectUniqueName": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\ProjectOngAnimais\\ProjectOngAnimais.csproj",
       "projectName": "ProjectOngAnimais",
-      "projectPath": "C:\\Users\\Alexandre\\Desktop\\Estágio\\Projetos\\BD_OngAdocaoAnimais\\ProjectOngAnimais\\ProjectOngAnimais\\ProjectOngAnimais.csproj",
+      "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\ProjectOngAnimais\\ProjectOngAnimais.csproj",
       "packagesPath": "C:\\Users\\Alexandre\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Alexandre\\Desktop\\Estágio\\Projetos\\BD_OngAdocaoAnimais\\ProjectOngAnimais\\ProjectOngAnimais\\obj\\",
+      "outputPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\ProjectOngAnimais\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
