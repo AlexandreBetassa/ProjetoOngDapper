@@ -384,7 +384,9 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "Dapper": "2.0.123",
-          "Dapper.Contrib": "2.0.78"
+          "Dapper.Contrib": "2.0.78",
+          "Models": "1.0.0",
+          "Repository": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Controllers.dll": {}
@@ -411,7 +413,6 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
-          "Controllers": "1.0.0",
           "Models": "1.0.0",
           "Services": "1.0.0",
           "System.Data.SqlClient": "4.8.3"
@@ -1096,9 +1097,6 @@
       "Microsoft.Extensions.Configuration >= 6.0.1",
       "Microsoft.Extensions.Configuration.FileExtensions >= 6.0.0",
       "Microsoft.Extensions.Configuration.Json >= 6.0.0",
-      "Models >= 1.0.0",
-      "Repository >= 1.0.0",
-      "Services >= 1.0.0",
       "System.Data.SqlClient >= 4.8.3"
     ]
   },
@@ -1136,15 +1134,6 @@
           "projectReferences": {
             "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Controllers\\Controllers.csproj": {
               "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Controllers\\Controllers.csproj"
-            },
-            "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Models\\Models.csproj": {
-              "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Models\\Models.csproj"
-            },
-            "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Repository\\Repository.csproj": {
-              "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Repository\\Repository.csproj"
-            },
-            "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Services\\Services.csproj": {
-              "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Services\\Services.csproj"
             }
           }
         }
@@ -1203,13 +1192,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema ao ler o arquivo de cache C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\ProjectOngAnimais\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

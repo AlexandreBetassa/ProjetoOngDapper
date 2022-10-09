@@ -31,7 +31,14 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Models\\Models.csproj": {
+                "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Models\\Models.csproj"
+              },
+              "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Repository\\Repository.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -172,15 +179,6 @@
             "projectReferences": {
               "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Controllers\\Controllers.csproj": {
                 "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Controllers\\Controllers.csproj"
-              },
-              "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Models\\Models.csproj": {
-                "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Models\\Models.csproj"
-              },
-              "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Repository\\Repository.csproj": {
-                "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Repository\\Repository.csproj"
-              },
-              "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Services\\Services.csproj": {
-                "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Services\\Services.csproj"
               }
             }
           }
@@ -268,9 +266,6 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Controllers\\Controllers.csproj": {
-                "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Controllers\\Controllers.csproj"
-              },
               "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Models\\Models.csproj": {
                 "projectPath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\Models\\Models.csproj"
               },
