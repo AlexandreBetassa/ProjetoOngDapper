@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectOngAnimais
 {
-    internal class Utils
+    public class Utils
     {
         public static bool ValidarCpf(string cpf)
         {

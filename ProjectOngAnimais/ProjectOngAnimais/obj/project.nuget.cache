@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "5FMIRIL8VrHzeji2UY9y/jJLVaoZwlFwpuSgrtPCJ8upDL+SyHXgdg3OgrGiK8fk36B1Z3vnrFkGqBDDYO0UoA==",
+  "dgSpecHash": "AtS8dtVCbJK2oImr2ssabrgZfkdEwM5JH2vyadYqIV0qsougcoOzNFF4H15fUwDEhGdlOZIY26iYRtSsjUHc7A==",
   "success": true,
   "projectFilePath": "C:\\Users\\Alexandre\\source\\repos\\ProjotoOngDapper\\ProjectOngAnimais\\ProjectOngAnimais\\ProjectOngAnimais.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Alexandre\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
+    "C:\\Users\\Alexandre\\.nuget\\packages\\dapper.contrib\\2.0.78\\dapper.contrib.2.0.78.nupkg.sha512",
     "C:\\Users\\Alexandre\\.nuget\\packages\\microsoft.extensions.configuration\\6.0.1\\microsoft.extensions.configuration.6.0.1.nupkg.sha512",
     "C:\\Users\\Alexandre\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\Alexandre\\.nuget\\packages\\microsoft.extensions.configuration.fileextensions\\6.0.0\\microsoft.extensions.configuration.fileextensions.6.0.0.nupkg.sha512",
