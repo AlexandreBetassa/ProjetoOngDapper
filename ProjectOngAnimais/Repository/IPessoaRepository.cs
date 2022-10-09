@@ -7,11 +7,10 @@ using Models;
 
 namespace Repository
 {
-    internal interface IPessoaRepository
+    public interface IPessoaRepository
     {
         public bool Insert(Pessoa pessoa);
         public List<Pessoa> Select();
-
 
     }
 }

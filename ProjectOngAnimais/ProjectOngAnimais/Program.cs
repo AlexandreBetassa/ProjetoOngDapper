@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Reflection.Metadata;
 using System.Runtime.Serialization;
 using System.Xml;
 using Models;
@@ -74,7 +75,7 @@ namespace ProjectOngAnimais
                     case 4:
                         Console.Clear();
                         Console.WriteLine("### LISTAR TODAS AS PESSOAS COM CADASTRO ATIVO ###");
-                        new PessoaRepository().Select().ForEach(Item => Console.WriteLine(Item)) ;
+                        new PessoaRepository().Select().ForEach(Item => Console.WriteLine(Item));
                         Utils.Pause();
                         break;
                     //case 5:
@@ -304,6 +305,20 @@ namespace ProjectOngAnimais
             pessoa.Telefone = Utils.ColetarString("Informe o número do teledone com DDD: ").Replace("(", "").Replace("-", "").Replace(")", "");
             pessoa.Status = "ATIVA";
             new PessoaRepository().Insert(pessoa);
+        }
+
+
+        public static void CadastrarAnimal()
+        {
+            Animal animal = new()
+            {
+                Familia = Utils.ColetarString("Informe a familia do PET: "),
+                Raca = Utils.ColetarString("Informe a raça do pet: "),
+                Sexo = Utils.ColetarString("Informe o sexo do PET (Opcional): "),
+                Nome = Utils.ColetarString("Informe o nome do PET (Opcional): "),
+                Disponivel = "Disponivel",
+            };
+
         }
     }
 }
