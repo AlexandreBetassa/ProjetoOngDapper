@@ -20,7 +20,7 @@ namespace Models
 
         public override string ToString()
         {
-            return $"Nome: {Nome}\nCPF: {Cpf}\nSexo: {Sexo}\nTelefone: ({Telefone}\nEndereço: {Endereco}\nData de nascimento: {DataNasc.ToShortDateString()}\nStatus Cadastro: {Status}".ToString();
+            return $"Nome: {Nome}\nCPF: {Cpf}\nSexo: {Sexo}\nTelefone: {Telefone}\nEndereço: {Endereco}\nData de nascimento: {DataNasc.ToShortDateString()}\nStatus Cadastro: {Status}".ToString();
         }
     }
 }
