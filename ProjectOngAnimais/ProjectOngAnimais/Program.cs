@@ -4,10 +4,10 @@ using System.Data;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Runtime.Serialization;
+using System.Security.Cryptography;
 using System.Xml;
 using Models;
 using Repository;
-
 
 namespace ProjectOngAnimais
 {
@@ -33,12 +33,12 @@ namespace ProjectOngAnimais
                     case 2:
                         MenuPet();
                         break;
-                    //case 3:
-                    //    NovaAdocao();
-                    //    break;
-                    //case 4:
-                    //    ListarRegAdocoes();
-                    //    break;
+                    case 3:
+                        NovaAdocao();
+                        break;
+                    case 4:
+                        new RegAdocaoRepository().Select().ForEach(item => Console.WriteLine(item));
+                        break;
                     default:
                         break;
                 }
@@ -111,7 +111,8 @@ namespace ProjectOngAnimais
                         EditarPet();
                         break;
                     case 3:
-                        Console.WriteLine("### LISTAR PET's DISPONIVEIS PARA ADOÇÃO ###");
+                        Console.Clear();
+                        Console.WriteLine("### PET's DISPONIVEIS PARA ADOÇÃO ###");
                         new AnimalRepository().Select().ForEach(item => Console.WriteLine(item));
                         Utils.Pause();
                         break;
@@ -121,22 +122,24 @@ namespace ProjectOngAnimais
             } while (true);
         }
 
-        //static void NovaAdocao()
-        //{
-        //    int confirmacao;
-        //    Db_ONG db = new Db_ONG();
-
-        //    Console.Clear();
-        //    Console.WriteLine("### NOVA ADOÇÃO ###");
-        //    int pet = BuscarPet(db);
-        //    if (pet == 0) return;
-        //    string cpf = BuscarPessoa(db);
-        //    if (cpf == "0") return;
-        //    confirmacao = Utils.ColetarValorInt("Confirmar adoção?\n(1 - Sim)\n(2 - Não)\nInforme opção: ");
-        //    if (confirmacao != 1) return;
-        //    else ConfirmarAdocao(cpf, pet, db);
-        //    Utils.Pause();
-        //}
+        static void NovaAdocao()
+        {
+            Console.Clear();
+            Console.WriteLine("### NOVA ADOÇÃO ###");
+            string cpf = Utils.ColetarString("Informe o CPF do novo tutor: ");
+            Pessoa pessoa = new PessoaRepository().Select().Where(item => item.Cpf == cpf && item.Status == "ATIVA").First();
+            new AnimalRepository().Select().Where(Item => Item.Disponivel == "DISPONIVEL").ToList().ForEach(item => Console.WriteLine(item));
+            int id = Utils.ColetarValorInt("Informe o número do chip do pet a ser adotado: ");
+            Animal animal = new AnimalRepository().Select().Where(item => item.NChip == id && item.Disponivel == "DISPONIVEL").First();
+            Console.WriteLine($"TUTOR\n{pessoa}\nANIMAL\n{animal}");
+            RegAdocao regAdocao = new()
+            {
+                Cpf = cpf,
+                NChip = id,
+                Data = DateTime.Now
+            };
+            new RegAdocaoRepository().Insert(regAdocao);
+        }
 
         //static void ConfirmarAdocao(string cpf, int IDpet, Db_ONG db)
         //{
@@ -333,6 +336,7 @@ namespace ProjectOngAnimais
 
         #endregion Pessoa
 
+        #region Animal
         public static void CadastrarAnimal()
         {
             Animal animal = new()
@@ -391,5 +395,7 @@ namespace ProjectOngAnimais
             Console.WriteLine("\n" + animal);
             new AnimalRepository().Delete(animal);
         }
+        #endregion Animal
+
     }
 }
