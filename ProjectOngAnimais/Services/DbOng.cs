@@ -10,11 +10,11 @@ namespace Services
 {
     public class DbOng : IDbOng
     {
-        private readonly string connection = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\..\\..\\..\\..\\ProjotoOngDapper\\ProjectOngAnimais\\Services\\DataBase\\DataBase.mdf;Integrated Security=True;Connect Timeout=30";
+        private readonly string _connection = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\..\\..\\..\\..\\ProjotoOngDapper\\ProjectOngAnimais\\Services\\DataBase\\DataBase.mdf;Integrated Security=True;Connect Timeout=30";
 
         public SqlConnection OpenConnection()
         {
-            SqlConnection conn = new(connection);
+            SqlConnection conn = new(_connection);
             conn.Open();
             return conn;
         }
