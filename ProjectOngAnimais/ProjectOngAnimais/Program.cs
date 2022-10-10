@@ -45,6 +45,7 @@ namespace ProjectOngAnimais
             } while (true);
         }
 
+        #region Menus
         static void MenuPessoas()
         {
             do
@@ -144,6 +145,7 @@ namespace ProjectOngAnimais
             }
             Utils.Pause();
         }
+        #endregion Menus
 
         #region Pessoa
         public static void CadastrarPessoa(int id)
