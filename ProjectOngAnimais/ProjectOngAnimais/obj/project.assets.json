@@ -15,22 +15,6 @@
           }
         }
       },
-      "Dapper.Contrib/2.0.78": {
-        "type": "package",
-        "dependencies": {
-          "Dapper": "2.0.78"
-        },
-        "compile": {
-          "lib/net5.0/Dapper.Contrib.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net5.0/Dapper.Contrib.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "Microsoft.Extensions.Configuration/6.0.1": {
         "type": "package",
         "dependencies": {
@@ -384,9 +368,12 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "Dapper": "2.0.123",
-          "Dapper.Contrib": "2.0.78",
+          "Microsoft.Extensions.Configuration": "6.0.1",
+          "Microsoft.Extensions.Configuration.FileExtensions": "6.0.0",
+          "Microsoft.Extensions.Configuration.Json": "6.0.0",
           "Models": "1.0.0",
-          "Repository": "1.0.0"
+          "Repository": "1.0.0",
+          "System.Data.SqlClient": "4.8.3"
         },
         "compile": {
           "bin/placeholder/Controllers.dll": {}
@@ -400,7 +387,10 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "Dapper": "2.0.123",
-          "Dapper.Contrib": "2.0.78"
+          "Microsoft.Extensions.Configuration": "6.0.1",
+          "Microsoft.Extensions.Configuration.FileExtensions": "6.0.0",
+          "Microsoft.Extensions.Configuration.Json": "6.0.0",
+          "System.Data.SqlClient": "4.8.3"
         },
         "compile": {
           "bin/placeholder/Models.dll": {}
@@ -413,6 +403,10 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "Dapper": "2.0.123",
+          "Microsoft.Extensions.Configuration": "6.0.1",
+          "Microsoft.Extensions.Configuration.FileExtensions": "6.0.0",
+          "Microsoft.Extensions.Configuration.Json": "6.0.0",
           "Models": "1.0.0",
           "Services": "1.0.0",
           "System.Data.SqlClient": "4.8.3"
@@ -429,7 +423,9 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "Dapper": "2.0.123",
-          "Dapper.Contrib": "2.0.78",
+          "Microsoft.Extensions.Configuration": "6.0.1",
+          "Microsoft.Extensions.Configuration.FileExtensions": "6.0.0",
+          "Microsoft.Extensions.Configuration.Json": "6.0.0",
           "System.Data.SqlClient": "4.8.3"
         },
         "compile": {
@@ -458,23 +454,6 @@
         "lib/net5.0/Dapper.xml",
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml"
-      ]
-    },
-    "Dapper.Contrib/2.0.78": {
-      "sha512": "sUfDVIf8LlHNiz3MfUFodeyRiemfN1JFkPxYjCxFWlwNPg1iQ49mB+0E89TkywWs4X8fiRWOVDQgtH5FtzK5Kw==",
-      "type": "package",
-      "path": "dapper.contrib/2.0.78",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "dapper.contrib.2.0.78.nupkg.sha512",
-        "dapper.contrib.nuspec",
-        "lib/net461/Dapper.Contrib.dll",
-        "lib/net461/Dapper.Contrib.xml",
-        "lib/net5.0/Dapper.Contrib.dll",
-        "lib/net5.0/Dapper.Contrib.xml",
-        "lib/netstandard2.0/Dapper.Contrib.dll",
-        "lib/netstandard2.0/Dapper.Contrib.xml"
       ]
     },
     "Microsoft.Extensions.Configuration/6.0.1": {
@@ -1093,7 +1072,6 @@
     "net5.0": [
       "Controllers >= 1.0.0",
       "Dapper >= 2.0.123",
-      "Dapper.Contrib >= 2.0.78",
       "Microsoft.Extensions.Configuration >= 6.0.1",
       "Microsoft.Extensions.Configuration.FileExtensions >= 6.0.0",
       "Microsoft.Extensions.Configuration.Json >= 6.0.0",
@@ -1151,10 +1129,6 @@
           "Dapper": {
             "target": "Package",
             "version": "[2.0.123, )"
-          },
-          "Dapper.Contrib": {
-            "target": "Package",
-            "version": "[2.0.78, )"
           },
           "Microsoft.Extensions.Configuration": {
             "target": "Package",

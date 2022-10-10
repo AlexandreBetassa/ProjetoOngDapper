@@ -8,7 +8,7 @@ using Repository;
 
 namespace Controllers
 {
-    public class PessoaController : IPessoaController
+    public class PessoaController 
     {
         public bool Delete(Pessoa pessoa)
         {
