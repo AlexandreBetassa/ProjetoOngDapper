@@ -5,7 +5,7 @@ using Repository;
 
 namespace Controllers
 {
-    public class AnimalController : IAnimalController
+    public class AnimalController
     {
         public bool Delete(Animal animal)
         {

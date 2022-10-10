@@ -113,7 +113,8 @@ namespace ProjectOngAnimais
                 {
                     Console.WriteLine("Informe uma opção válida...");
                     Pause();
-                }else
+                }
+                else
                     return valor;
             } while (true);
         }
@@ -123,7 +124,7 @@ namespace ProjectOngAnimais
             do
             {
                 Console.Write(texto);
-                valor = Console.ReadLine();
+                valor = Console.ReadLine().ToUpper();
                 if (String.IsNullOrWhiteSpace(valor))
                 {
                     Console.WriteLine("Insira uma informação válida...");

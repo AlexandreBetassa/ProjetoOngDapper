@@ -130,7 +130,7 @@ namespace ProjectOngAnimais
             Console.WriteLine("### NOVA ADOÇÃO ###");
             new AnimalController().Select().Where(Item => Item.Disponivel == "DISPONIVEL").ToList().ForEach(item => Console.WriteLine(item));
             int id = Utils.ColetarValorInt("Informe o número do chip do pet a ser adotado: ");
-            Animal animal = new AnimalController().Select().Where(item => item.NChip == id && item.Disponivel == "DISPONIVEL").First();
+            //new AnimalController().Select().Where(item => item.NChip == id && item.Disponivel == "DISPONIVEL");
             CadastrarPessoa(id);
         }
 
@@ -215,7 +215,7 @@ namespace ProjectOngAnimais
                 Raca = Utils.ColetarString("Informe a raça do pet: "),
                 Sexo = Utils.ColetarString("Informe o sexo do PET (Opcional): "),
                 Nome = Utils.ColetarString("Informe o nome do PET (Opcional): "),
-                Disponivel = "Disponivel",
+                Disponivel = "DISPONIVEL",
             };
             new AnimalController().Insert(animal);
         }
