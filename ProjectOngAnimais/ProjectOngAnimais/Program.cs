@@ -128,10 +128,21 @@ namespace ProjectOngAnimais
         {
             Console.Clear();
             Console.WriteLine("### NOVA ADOÇÃO ###");
-            new AnimalController().Select().Where(Item => Item.Disponivel == "DISPONIVEL").ToList().ForEach(item => Console.WriteLine(item));
-            int id = Utils.ColetarValorInt("Informe o número do chip do pet a ser adotado: ");
-            //new AnimalController().Select().Where(item => item.NChip == id && item.Disponivel == "DISPONIVEL");
-            CadastrarPessoa(id);
+            int id;
+            var lstAdocao = new AnimalController().Select().Where(Item => Item.Disponivel == "DISPONIVEL");
+            if (!lstAdocao.Any()) Console.WriteLine("Não há animais para adoção cadastrados");
+            else
+            {
+                do
+                {
+                    id = Utils.ColetarValorInt("Informe o número do chip do pet a ser adotado: ");
+                    var pet = new AnimalController().Select().Where(item => item.NChip == id && item.Disponivel == "DISPONIVEL");
+                    if (!pet.Any()) Console.WriteLine("Informe um ID válido");
+                    else break;
+                } while (true);
+                CadastrarPessoa(id);
+            }
+            Utils.Pause();
         }
 
         #region Pessoa
